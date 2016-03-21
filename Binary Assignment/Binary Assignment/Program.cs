@@ -15,26 +15,28 @@ namespace Binary_Assignment
 
         {
             Functions functions = new Functions();
+           
+            main main = new main();
             Console.WriteLine("want to convert 1. to binary or 2. to int?");
             Console.WriteLine("1.to binary");
             Console.WriteLine("2. to number");
             int choice = int.Parse(Console.ReadLine());
-            
+
             if (choice == 1)
             {
 
-
+                
 
                 Console.WriteLine("Please enter a number");
 
                 int firstNumber = int.Parse(System.Console.ReadLine());
-           
 
-               string answer= functions.makebinary(firstNumber);
-                
-                    Console.WriteLine(answer);
-                
-             
+
+                string answer = functions.makebinary(firstNumber);
+
+                Console.WriteLine(answer);
+
+
 
             }
             else if (choice == 2)
@@ -46,7 +48,20 @@ namespace Binary_Assignment
                 string result = Convert.ToInt32(firstNumber, 2).ToString();
 
                 Console.WriteLine("now converted back to int:  {0}", result);
+
+            }
+            else if (choice == 911)
+            {
+                 Console.WriteLine("Please enter a number");
+
+                int firstNumber = int.Parse(System.Console.ReadLine());
+
+                main.toBoolean(firstNumber);
+
+                main.Add();
+
                 
+
             }
 
 
