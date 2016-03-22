@@ -45,12 +45,12 @@
   <ItemGroup>
     <Compile Include="CropOptions.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameOver.cs" />
     <Compile Include="Instructions.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomeName.cs" />
     <Compile Include="RandomInt.cs" />
     <Compile Include="Time.cs" />
   </ItemGroup>
