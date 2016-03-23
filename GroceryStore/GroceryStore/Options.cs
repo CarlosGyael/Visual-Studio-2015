@@ -25,8 +25,9 @@ namespace GroceryStore
         public List<int> shoplist = new List<int>();
         public List<string> croplistname = new List<string>();
         public List<string> applicants = new List<string>();
+        public List<int> special = new List<int>();
 
-        public int day = 9;
+        public int day = 1;
         string line;
         bool incorrect = true;
         int choice;
@@ -36,7 +37,6 @@ namespace GroceryStore
         double test;
         int appcount;
         int randnum2;
-
 
 
 
@@ -178,6 +178,13 @@ namespace GroceryStore
             croplistname.Add("beans");
 
 
+            special.Add(0);
+            special.Add(0);
+            special.Add(0);
+            special.Add(0);
+            special.Add(0);
+            special.Add(0);
+
         }
 
         public void shop()
@@ -190,7 +197,7 @@ namespace GroceryStore
                 for (int j = 0; j < croplistname.Count; j++)
                 {
 
-                    Console.WriteLine(croplistname[j] + ": " + shoplist[i]);
+                    Console.WriteLine(croplistname[j] + ": " + shoplist[j]);
 
                 }
             }
@@ -235,894 +242,60 @@ namespace GroceryStore
                     }
                     else if (res == true)
 
-                        if (choice == 1 && game.keepnum == 1)
+                        
+                    if (choice == 1 && game.keepnum == 1)
                         {
-                            cropname = "corn";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 50;
-                                    money -= 200;
-                                    Items[0] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 100;
-                                    money -= 400;
-                                    Items[0] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 200;
-                                    money -= 700;
-                                    Items[0] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 400;
-                                    money -= 900;
-                                    Items[0] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 500;
-                                    money -= 1000;
-                                    Items[0] += 500;
-                                }
+                            cornspecial();
 
                         }
                         else if (choice == 2 && game.keepnum == 2)
                         {
-                            cropname = "potatoe";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 50;
-                                    money -= 200;
-                                    Items[1] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 100;
-                                    money -= 400;
-                                    Items[1] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 200;
-                                    money -= 700;
-                                    Items[1] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 400;
-                                    money -= 900;
-                                    Items[1] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 500;
-                                    money -= 1000;
-                                    Items[1] += 500;
-                                }
+                            potatoespecial();
 
 
                         }
                         else if (choice == 3 && game.keepnum == 3)
                         {
-                            cropname = "flour";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 50;
-                                    money -= 200;
-                                    Items[2] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 100;
-                                    money -= 400;
-                                    Items[2] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 200;
-                                    money -= 700;
-                                    Items[2] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 400;
-                                    money -= 900;
-                                    Items[2] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 500;
-                                    money -= 1000;
-                                    Items[2] += 50;
-                                }
+                            flourspecial();
                         }
                         else if (choice == 4 && game.keepnum == 4)
                         {
-                            cropname = "tomatoes";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 50;
-                                    money -= 200;
-                                    Items[3] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 100;
-                                    money -= 400;
-                                    Items[3] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 200;
-                                    money -= 700;
-                                    Items[3] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 400;
-                                    Items[3] += 400;
-                                    money -= 900;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 500;
-                                    money -= 1000;
-                                    Items[3] += 500;
-                                }
+                            tomatoespecial();
                         }
                         else if (choice == 5 && game.keepnum == 5)
                         {
-                            cropname = "lettuce";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 50;
-                                    money -= 200;
-                                    Items[4] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 100;
-                                    money -= 400;
-                                    Items[4] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 200;
-                                    money -= 700;
-                                    Items[4] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 400;
-                                    money -= 900;
-                                    Items[4] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 500;
-                                    money -= 1000;
-                                    Items[4] += 500;
-                                }
+                            lettucespecial();
                         }
                         else if (choice == 6 && game.keepnum == 6)
                         {
-                            cropname = "beans";
-                            Console.WriteLine("{0} value is now high due to the news", cropname);
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.valueable();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 200)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[6] -= 50;
-                                    money -= 200;
-                                    Items[6] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 400)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[6] -= 100;
-                                    money -= 400;
-                                    Items[6] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 750)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[6] -= 200;
-                                    money -= 700;
-                                    Items[6] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 900)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[6] -= 400;
-                                    money -= 900;
-                                    Items[6] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 1000)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[6] -= 500;
-                                    money -= 1000;
-                                    Items[6] += 500;
-                                }
+                            beansspecial();
                         }
                         else if (choice == 1)
                         {
-                            cropname = "corn";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 50;
-                                    money -= 100;
-                                    Items[0] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 100;
-                                    money -= 150;
-                                    Items[0] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 200;
-                                    money -= 250;
-                                    Items[0] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 400;
-                                    money -= 450;
-                                    Items[0] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[0] -= 500;
-                                    money -= 550;
-                                    Items[0] += 500;
-                                }
+                            corn();
                         }
                         else if (choice == 2)
                         {
-                            cropname = "potatoe";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 50;
-                                    money -= 100;
-                                    Items[1] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 100;
-                                    money -= 150;
-                                    Items[1] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 200;
-                                    money -= 250;
-                                    Items[1] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 400;
-                                    money -= 450;
-                                    Items[1] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[1] -= 500;
-                                    money -= 550;
-                                    Items[1] += 500;
-                                }
+                            potatoe();
 
                         }
                         else if (choice == 3)
                         {
-                            cropname = "flour";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 50;
-                                    money -= 100;
-                                    Items[2] += 50;
-
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 100;
-                                    money -= 150;
-                                    Items[2] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 200;
-                                    money -= 250;
-                                    Items[2] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 400;
-                                    money -= 450;
-                                    Items[2] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[2] -= 500;
-                                    money -= 550;
-                                    Items[2] += 500;
-                                }
+                            flour();
 
                         }
                         else if (choice == 4)
                         {
-                            cropname = "tomatoe";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 50;
-                                    money -= 100;
-                                    Items[3] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 100;
-                                    money -= 150;
-                                    Items[3] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 200;
-                                    money -= 250;
-                                    Items[3] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 400;
-                                    money -= 450;
-                                    Items[3] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[3] -= 500;
-                                    money -= 550;
-                                    Items[3] += 500;
-                                }
-
+                            tomatoe();
                         }
                         else if (choice == 5)
                         {
-                            cropname = "lettuce";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 50;
-                                    money -= 100;
-                                    Items[4] += 50;
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 100;
-                                    money -= 150;
-                                    Items[4] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 200;
-                                    money -= 250;
-                                    Items[4] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 400;
-                                    money -= 450;
-                                    Items[4] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[4] -= 500;
-                                    money -= 550;
-                                    Items[4] += 500;
-                                }
+                            lettuce();
 
                         }
                         else if (choice == 6)
                         {
-                            cropname = "beans";
-
-                            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
-                            cropoptions.normal();
-                            line = Console.ReadLine();
-
-
-
-                            res = int.TryParse(line, out choice);
-                            if (res == false)
-                            {
-                                Console.WriteLine("{0} is not an integer", line);
-
-                            }
-                            else if (res == true)
-                                if (choice == 1)
-                                {
-                                    if (money < 100)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[5] -= 50;
-                                    money -= 100;
-                                    Items[5] += 50;
-
-                                }
-                                else if (choice == 2)
-                                {
-                                    if (money < 150)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[5] -= 100;
-                                    money -= 150;
-                                    Items[5] += 100;
-                                }
-                                else if (choice == 3)
-                                {
-                                    if (money < 250)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[5] -= 200;
-                                    money -= 250;
-                                    Items[5] += 200;
-                                }
-                                else if (choice == 4)
-                                {
-                                    if (money < 450)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[5] -= 400;
-                                    money -= 450;
-                                    Items[5] += 400;
-                                }
-                                else if (choice == 5)
-                                {
-                                    if (money < 550)
-                                    {
-                                        Console.WriteLine("you dont have enough money!");
-                                        menu();
-                                    }
-                                    shoplist[5] -= 500;
-                                    money -= 550;
-                                    Items[5] += 500;
-                                }
-
+                            beans();
                         }
 
 
@@ -1238,21 +411,49 @@ namespace GroceryStore
                 {
 
                     test = rand.normal(0);
+
                     if (test > 55 && Items[j] > 0)
                     {
-                        test = Items[j] * 3;
+                        if (special[j] == game.keepnum)
+                        {
+                            test = Items[j] * 3 * 3;
+                        }
+                        else {
+                            test = Items[j] * 3;
+                        }
                     }
                     else if (appcount > 0 && test > 55)
                     {
-                        test = Items[j] * 3 * (appcount / 2);
+                        if (special[j] == game.keepnum)
+                        {
+                            test = Items[j] * 3 * (appcount / 2) * 3;
+                        }
+                        else {
+                            test = Items[j] * 3 * (appcount / 2);
+                        }
+
                     }
                     else if (appcount > 0 && test < 55)
                     {
-                        test = Items[j] * 1 * (appcount / 2);
+                        if (special[j] == game.keepnum)
+                        {
+                            test = Items[j] * 1 * (appcount / 2) * 3;
+                        }
+                        else {
+                            test = Items[j] * 1 * (appcount / 2);
+                        }
+
                     }
                     else
                     {
-                        test = Items[j] * 1;
+                        if (special[j] == game.keepnum)
+                        {
+                            test = Items[j] * 1 * 3;
+                        }
+                        else {
+                            test = Items[j] * 1;
+                        }
+
                     }
 
                     Console.WriteLine(croplistname[j] + " made: $" + test);
@@ -1272,7 +473,7 @@ namespace GroceryStore
             {
                 Items[j] = 0;
                 shoplist[j] = 500;
-
+                special[j] = 0;
             }
 
             application();
@@ -1456,16 +657,931 @@ namespace GroceryStore
 
             Console.WriteLine("HighScore List");
             Console.WriteLine("--------------------");
-
+            int i = 0;
             foreach (var finalscore in orderedScores)
             {
-                int i=0;
-                Console.WriteLine(i+". " + finalscore);
+
+                Console.WriteLine(i + ". " + finalscore);
 
                 i++;
             }
             file.Close();
             greeting();
+        }
+        bool res;
+
+        public void cornspecial() {
+            cropname = "corn";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[0] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 50;
+                    money -= 200;
+                    Items[0] += 50;
+                    special[0] += 1;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[0] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 100;
+                    money -= 400;
+                    Items[0] += 100;
+                    special[0] += 1;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[0] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 200;
+                    money -= 700;
+                    Items[0] += 200;
+                    special[0] += 1;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[0] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 400;
+                    money -= 900;
+                    Items[0] += 400;
+                    special[0] += 1;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[0] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 500;
+                    money -= 1000;
+                    Items[0] += 500;
+                    special[0] += 1;
+                }
+        }
+
+        public void potatoespecial() {
+            cropname = "potatoe";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[1] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 50;
+                    money -= 200;
+                    Items[1] += 50;
+                    special[1] += 2;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[1] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 100;
+                    money -= 400;
+                    Items[1] += 100;
+                    special[1] += 2;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[1] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 200;
+                    money -= 700;
+                    Items[1] += 200;
+                    special[1] += 2;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[1] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 400;
+                    money -= 900;
+                    Items[1] += 400;
+                    special[1] += 2;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[1] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 500;
+                    money -= 1000;
+                    Items[1] += 500;
+                    special[1] += 2;
+                }
+        }
+
+
+        public void flourspecial() {
+            cropname = "flour";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[2] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 50;
+                    money -= 200;
+                    Items[2] += 50;
+                    special[2] += 3;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[2] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 100;
+                    money -= 400;
+                    Items[2] += 100;
+                    special[2] += 3;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[2] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 200;
+                    money -= 700;
+                    Items[2] += 200;
+                    special[2] += 3;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[2] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 400;
+                    money -= 900;
+                    Items[2] += 400;
+                    special[2] += 3;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[2] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 500;
+                    money -= 1000;
+                    Items[2] += 50;
+                    special[2] += 3;
+                }
+        }
+
+
+        public void tomatoespecial() {
+            cropname = "tomatoes";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[3] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 50;
+                    money -= 200;
+                    Items[3] += 50;
+                    special[3] += 4;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[3] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 100;
+                    money -= 400;
+                    Items[3] += 100;
+                    special[3] += 4;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[3] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 200;
+                    money -= 700;
+                    Items[3] += 200;
+                    special[3] += 4;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[3] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 400;
+                    Items[3] += 400;
+                    money -= 900;
+                    special[3] += 4;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[3] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 500;
+                    money -= 1000;
+                    Items[3] += 500;
+                    special[3] += 4;
+                }
+        }
+
+        public void lettucespecial() {
+            cropname = "lettuce";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[4] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 50;
+                    money -= 200;
+                    Items[4] += 50;
+                    special[4] += 5;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[4] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 100;
+                    money -= 400;
+                    Items[4] += 100;
+                    special[4] += 5;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[4] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 200;
+                    money -= 700;
+                    Items[4] += 200;
+                    special[4] += 5;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[4] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 400;
+                    money -= 900;
+                    Items[4] += 400;
+                    special[4] += 5;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[4] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 500;
+                    money -= 1000;
+                    Items[4] += 500;
+                    special[4] += 5;
+                }
+        }
+
+        public void beansspecial() {
+            cropname = "beans";
+            Console.WriteLine("{0} value is now high due to the news", cropname);
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.valueable();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[5] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 50;
+                    money -= 200;
+                    Items[5] += 50;
+                    special[5] += 6;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[4] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 100;
+                    money -= 400;
+                    Items[5] += 100;
+                    special[5] += 6;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[4] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 200;
+                    money -= 700;
+                    Items[5] += 200;
+                    special[5] += 6;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[4] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 400;
+                    money -= 900;
+                    Items[5] += 400;
+                    special[5] += 6;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[4] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 500;
+                    money -= 1000;
+                    Items[5] += 500;
+                    special[5] += 6;
+                }
+        }
+
+        public void corn() {
+            cropname = "corn";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[0] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 50;
+                    money -= 100;
+                    Items[0] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[0] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 100;
+                    money -= 150;
+                    Items[0] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[0] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 200;
+                    money -= 250;
+                    Items[0] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[0] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 400;
+                    money -= 450;
+                    Items[0] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[0] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[0] -= 500;
+                    money -= 550;
+                    Items[0] += 500;
+                }
+        }
+
+        public void potatoe() {
+            cropname = "potatoe";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[1] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 50;
+                    money -= 100;
+                    Items[1] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[1] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 100;
+                    money -= 150;
+                    Items[1] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[1] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 200;
+                    money -= 250;
+                    Items[1] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[1] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 400;
+                    money -= 450;
+                    Items[1] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[1] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[1] -= 500;
+                    money -= 550;
+                    Items[1] += 500;
+                }
+        }
+
+        public void flour() {
+            cropname = "flour";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[2] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 50;
+                    money -= 100;
+                    Items[2] += 50;
+
+                }
+                else if (choice == 2 || shoplist[2] < 100)
+                {
+                    if (money < 150)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 100;
+                    money -= 150;
+                    Items[2] += 100;
+                }
+                else if (choice == 3 || shoplist[2] < 200)
+                {
+                    if (money < 250)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 200;
+                    money -= 250;
+                    Items[2] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[2] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 400;
+                    money -= 450;
+                    Items[2] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[2] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[2] -= 500;
+                    money -= 550;
+                    Items[2] += 500;
+                }
+        }
+
+        public void tomatoe() {
+            cropname = "tomatoe";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[3] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 50;
+                    money -= 100;
+                    Items[3] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[3] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 100;
+                    money -= 150;
+                    Items[3] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[3] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 200;
+                    money -= 250;
+                    Items[3] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[3] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 400;
+                    money -= 450;
+                    Items[3] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[3] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[3] -= 500;
+                    money -= 550;
+                    Items[3] += 500;
+                }
+
+        }
+
+        public void lettuce() {
+            cropname = "lettuce";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[4] < 50)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 50;
+                    money -= 100;
+                    Items[4] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[4] < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 100;
+                    money -= 150;
+                    Items[4] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[4] < 200)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 200;
+                    money -= 250;
+                    Items[4] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[4] < 400)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 400;
+                    money -= 450;
+                    Items[4] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[4] < 500)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[4] -= 500;
+                    money -= 550;
+                    Items[4] += 500;
+                }
+        }
+        public void beans() {
+            cropname = "beans";
+
+            Console.WriteLine("how much {0} do you want to buy?                      my money: ${1}", cropname, money);
+            cropoptions.normal();
+            line = Console.ReadLine();
+
+
+
+            res = int.TryParse(line, out choice);
+            if (res == false)
+            {
+                Console.WriteLine("{0} is not an integer", line);
+
+            }
+            else if (res == true)
+                if (choice == 1)
+                {
+                    if (money < 100)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 50;
+                    money -= 100;
+                    Items[5] += 50;
+
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 100;
+                    money -= 150;
+                    Items[5] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 200;
+                    money -= 250;
+                    Items[5] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 400;
+                    money -= 450;
+                    Items[5] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550)
+                    {
+                        Console.WriteLine("you dont have enough money or item amount is out of stock!");
+                        menu();
+                    }
+                    shoplist[5] -= 500;
+                    money -= 550;
+                    Items[5] += 500;
+                }
+
         }
     }
 }

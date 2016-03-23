@@ -13,45 +13,47 @@ namespace GroceryStore
         RandomInt rand = new RandomInt();
         public string random()
         {
-            int randomnum = rand.Random(10);
+            int num=0;
 
-            if (randomnum == 1)
+            num += 1;
+
+            if (num == 1)
             {
                 name = "Steve";
             }
-            else if (randomnum == 2)
+            else if (num == 2)
             {
                 name = "Wanda";
             }
-            else if (randomnum == 3)
+            else if (num == 3)
             {
                 name = "Carlos";
             }
-            else if (randomnum == 4)
+            else if (num == 4)
             {
                 name = "Heather";
             }
-            else if (randomnum == 5)
+            else if (num == 5)
             {
                 name = "Jim";
             }
-            else if (randomnum == 6)
+            else if (num == 6)
             {
                 name = "Fiora";
             }
-            else if (randomnum == 7)
+            else if (num == 7)
             {
                 name = "Carol";
             }
-            else if (randomnum == 8)
+            else if (num == 8)
             {
                 name = "Justin";
             }
-            else if (randomnum == 9)
+            else if (num == 9)
             {
                 name = "Flash";
             }
-            else if (randomnum == 10)
+            else if (num == 10)
             {
                 name = "John";
             }

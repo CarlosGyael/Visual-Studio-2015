@@ -28,13 +28,11 @@ namespace GroceryStore
         }
         public void elapsed()
         {
-
             TimeSpan ts = stopWatch.Elapsed;
 
-
             string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
-                 ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
+                             ts.Minutes, ts.Seconds,
+                            ts.Milliseconds / 10);
             Console.WriteLine(elapsedTime);
 
         }
