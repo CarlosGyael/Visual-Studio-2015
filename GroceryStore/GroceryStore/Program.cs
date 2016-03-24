@@ -11,7 +11,7 @@ namespace GroceryStore
         static void Main(string[] args)
         {
             
-            Options options = new Options();
+            Game options = new Game();
 
             options.greeting();
             

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStore
 {
-    class Options
+    class Game
     {
 
         Time time = new Time();
@@ -17,15 +17,17 @@ namespace GroceryStore
         RandomInt rand = new RandomInt();
         News game = new News();
         Items items = new Items();
-        CropOptions cropoptions = new CropOptions();
-        Instructions instructions = new Instructions();
-        Interface user = new Interface();
+        CropPrice cropoptions = new CropPrice();
+        GameQuestions user = new GameQuestions();
 
         public List<int> Items = new List<int>();
         public List<int> shoplist = new List<int>();
         public List<string> croplistname = new List<string>();
         public List<string> applicants = new List<string>();
+        public List<string> applicants2 = new List<string>();
+        public List<int> Items2 = new List<int>();
         public List<int> special = new List<int>();
+        List<HighScoreOrganize> orderedScores = new List<HighScoreOrganize>();
 
         public int day = 1;
         string line;
@@ -34,9 +36,14 @@ namespace GroceryStore
         int randnum;
         int randnum2;
         public double money = 500;
+        public double money2 = 500;
         double test;
         int appcount;
         double score;
+        double newscore;
+        bool players;
+        string grabName;
+        bool turn;
 
 
 
@@ -46,15 +53,24 @@ namespace GroceryStore
             Console.WriteLine("Hello, and welcome to day 1 of your Grocery Store.");
 
             time.OneSec();
-
-
+            Console.WriteLine("One or two players?");
+            Console.WriteLine("1. One");
+            Console.WriteLine("2. two");
+            choice = user.input();
+            if (choice == 1)
+            {
+                players = false;
+            }
+            else if (choice == 2) {
+                players = true;
+            }
 
             while (incorrect)
             {
                 Console.WriteLine("Would you like to skip the instructions of the game?");
                 user.yesno();
 
-                choice = choice = user.input();
+                choice = user.input();
                 {
 
                 }
@@ -65,16 +81,16 @@ namespace GroceryStore
                     string CurrentTime = Start.ToString();
                     time.stopWatch.Start();
                     randnum = rand.Random(6);
-                    foodlist();
-                    menu();
+                    lisoffood();
+                    mainmenu();
 
 
                 }
                 else if (choice == 2)
                 {
 
-                    instructions.startinstructions();
-                    menu();
+                    startinstructions();
+                    mainmenu();
 
                 }
                 else if (line == "")
@@ -94,8 +110,20 @@ namespace GroceryStore
             }
         }
 
+        public void startinstructions()
+        {
 
-        public void start()
+            Console.WriteLine("You start with $500. You have to buy crops or else you will have a No Sale Day. which means you will have no income that day,");
+            Console.WriteLine(" wasting time and not being able to beat the high scores. the goal is to make ");
+            Console.WriteLine(" alot of money as fast as possible. time is ticking once you start.");
+            Console.WriteLine("the more applications you hire the more money you make!");
+            Console.WriteLine("you get 10 days !");
+
+            time.FiveSec();
+        }
+
+
+        public void startgame()
         {
             while (incorrect)
             {
@@ -109,8 +137,8 @@ namespace GroceryStore
                     string CurrentTime = Start.ToString();
                     time.stopWatch.Start();
                     randnum = rand.Random(6);
-                    foodlist();
-                    menu();
+                    lisoffood();
+                    mainmenu();
 
                 }
                 else if (choice == 2)
@@ -129,7 +157,7 @@ namespace GroceryStore
             }
         }
 
-        public void foodlist()
+        public void lisoffood()
         {
 
             for (int j = 0; j <= 5; j++)
@@ -137,6 +165,7 @@ namespace GroceryStore
                 Items.Add(0);
                 shoplist.Add(500);
                 special.Add(0);
+                Items2.Add(0);
             }
 
             croplistname.Add("corn");
@@ -149,7 +178,7 @@ namespace GroceryStore
         }
 
 
-        public void shop()
+        public void shopmenu()
         {
 
             Console.WriteLine(" Crop     Amount");
@@ -170,10 +199,10 @@ namespace GroceryStore
 
             if (choice == 1)
             {
-                if (money == 0)
+                if (money == 0 || money2 ==0)
                 {
                     Console.WriteLine("you dont have any money!");
-                    menu();
+                    mainmenu();
                 }
                 Console.WriteLine("what product would you like to buy?");
                 for (int j = 0; j < croplistname.Count; j++)
@@ -183,71 +212,71 @@ namespace GroceryStore
                 }
 
                 choice = user.input();
+                shopoptions();
+            }
 
 
-                if (choice == 1 && game.keepnum == 1)
-                {
-                    cornspecial();
+            else if (choice == 2)
+            {
+                mainmenu();
+            }
 
-                }
-                else if (choice == 2 && game.keepnum == 2)
-                {
-                    potatoespecial();
+        }
 
+        public void shopoptions()
+        {
+            if (choice == 1 && game.keepnum == 1)
+            {
+                cornspecial();
 
-                }
-                else if (choice == 3 && game.keepnum == 3)
-                {
-                    flourspecial();
-                }
-                else if (choice == 4 && game.keepnum == 4)
-                {
-                    tomatoespecial();
-                }
-                else if (choice == 5 && game.keepnum == 5)
-                {
-                    lettucespecial();
-                }
-                else if (choice == 6 && game.keepnum == 6)
-                {
-                    beansspecial();
-                }
-                else if (choice == 1)
-                {
-                    corn();
-                }
-                else if (choice == 2)
-                {
-                    potatoe();
-
-                }
-                else if (choice == 3)
-                {
-                    flour();
-
-                }
-                else if (choice == 4)
-                {
-                    tomatoe();
-                }
-                else if (choice == 5)
-                {
-                    lettuce();
-
-                }
-                else if (choice == 6)
-                {
-                    beans();
-                }
-
-
-
+            }
+            else if (choice == 2 && game.keepnum == 2)
+            {
+                potatoespecial();
+            }
+            else if (choice == 3 && game.keepnum == 3)
+            {
+                flourspecial();
+            }
+            else if (choice == 4 && game.keepnum == 4)
+            {
+                tomatoespecial();
+            }
+            else if (choice == 5 && game.keepnum == 5)
+            {
+                lettucespecial();
+            }
+            else if (choice == 6 && game.keepnum == 6)
+            {
+                beansspecial();
+            }
+            else if (choice == 1)
+            {
+                corn();
             }
             else if (choice == 2)
             {
-                menu();
-            }
+                potatoe();
 
+            }
+            else if (choice == 3)
+            {
+                flour();
+
+            }
+            else if (choice == 4)
+            {
+                tomatoe();
+            }
+            else if (choice == 5)
+            {
+                lettuce();
+
+            }
+            else if (choice == 6)
+            {
+                beans();
+            }
         }
         public void mycrops()
         {
@@ -264,10 +293,88 @@ namespace GroceryStore
 
         }
 
-        public void menu()
+        public void player2crops()
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = 0; j < croplistname.Count; j++)
+                {
+                    Console.WriteLine(croplistname[j] + ": " + Items2[j]);
+
+                }
+
+
+            }
+
+        }
+
+        public void mainmenu()
         {
             while (incorrect)
             {
+                if (players == true)
+                {
+
+                    if (turn == true)
+                    {
+                        Console.WriteLine("Player 1 turn");
+                    }
+                    else if (turn == false)
+                    {
+                        Console.WriteLine("Player 2 turn");
+                        Console.WriteLine("..... returning to menu");
+
+                        time.TwoSec();
+
+                        Console.WriteLine("");
+
+                        Console.WriteLine("Grocery Store Menu");
+                        Console.WriteLine("------------------");
+                        Console.WriteLine("Day:  {1}                                          Money:  ${0}", money2, day);
+                        time.stopWatch.Stop();
+                        Console.Write("Time: ");
+                        time.elapsed();
+                        time.stopWatch.Start();
+                        Console.WriteLine("News: ");
+                        game.news(randnum);
+
+                        Console.WriteLine("");
+                        Console.WriteLine("1. Start day");
+                        Console.WriteLine("2. Buy crops");
+                        Console.WriteLine("3. My crops");
+                        Console.WriteLine("4. Look at applications");
+                        Console.WriteLine("5. Start over");
+
+                        if (day == 10)
+                        {
+                            Console.WriteLine("This is your last day!");
+                        }
+
+                        choice = user.input();
+
+                        if (choice == 1)
+                        {
+                            startGame();
+                        }
+                        else if (choice == 2)
+                        {
+                            shopmenu();
+                        }
+                        else if (choice == 3)
+                        {
+                            player2crops();
+                        }
+                        else if (choice == 4)
+                        {
+                            viewapplication();
+                        }
+                        else if (choice == 5)
+                        {
+                            gameover();
+                        }
+                    }
+
+                }
                 Console.WriteLine("..... returning to menu");
 
                 time.TwoSec();
@@ -304,7 +411,7 @@ namespace GroceryStore
                 }
                 else if (choice == 2)
                 {
-                    shop();
+                    shopmenu();
                 }
                 else if (choice == 3)
                 {
@@ -316,84 +423,32 @@ namespace GroceryStore
                 }
                 else if (choice == 5)
                 {
-                    Over();
+                    gameover();
                 }
-
-
             }
-
-
         }
 
         public void startGame()
         {
+            if (players == true) {
+
+                if (turn == true)
+                {
+                    Console.WriteLine("Player 1 is");
+                }
+                else if (turn == false)
+                {
+                    Console.WriteLine("Player 2 is");
+                }
+
+            }
+            
             Console.WriteLine("Starting Day....");
             time.TwoSec();
 
             Console.WriteLine("Day : " + day);
 
-
-
-
-
-
-            for (int i = 0; i < 1; i++)
-            {
-                for (int j = 0; j < Items.Count; j++)
-                {
-
-                    test = rand.normal(0);
-
-                    if (test > 55 && Items[j] > 0)
-                    {
-                        if (special[j] == game.keepnum)
-                        {
-                            test = Items[j] * 3 * 3;
-                        }
-                        else {
-                            test = Items[j] * 3;
-                        }
-                    }
-                    else if (appcount > 0 && test > 55)
-                    {
-                        if (special[j] == game.keepnum)
-                        {
-                            test = Items[j] * 3 * (appcount / 2) * 3;
-                        }
-                        else {
-                            test = Items[j] * 3 * (appcount / 2);
-                        }
-
-                    }
-                    else if (appcount > 0 && test < 55)
-                    {
-                        if (special[j] == game.keepnum)
-                        {
-                            test = Items[j] * 1 * (appcount / 2) * 3;
-                        }
-                        else {
-                            test = Items[j] * 1 * (appcount / 2);
-                        }
-
-                    }
-                    else
-                    {
-                        if (special[j] == game.keepnum)
-                        {
-                            test = Items[j] * 1 * 3;
-                        }
-                        else {
-                            test = Items[j] * 1;
-                        }
-
-                    }
-
-                    Console.WriteLine(croplistname[j] + " made: $" + test);
-                    money += test;
-                }
-
-
-            }
+            arithmetic();
 
             time.OneSec();
             Console.WriteLine("your crops have gone to waste for the next day!");
@@ -403,23 +458,155 @@ namespace GroceryStore
 
             application();
 
-            for (int j = 0; j < Items.Count; j++)
+            for (int j = 0; j < Items2.Count; j++)
             {
-                Items[j] = 0;
+                Items2[j] = 0;
                 shoplist[j] = 500;
                 special[j] = 0;
             }
 
             if (day == 10)
             {
-                Over();
+                gameover();
             }
-
+            if (turn == false)
+            {
+                turn = true;
+                mainmenu();
+            }
+            else if (players == false) {
+                
+                day += 1;
+                mainmenu();
+            }
+            turn = false;
             day += 1;
-            menu();
+            mainmenu();
         }
 
-        public void Over()
+        public void arithmetic()
+        {
+            if (turn == false) {
+                for (int i = 0; i < 1; i++)
+                {
+                    for (int j = 0; j < Items2.Count; j++)
+                    {
+
+                        test = rand.normal(0);
+
+                        if (test > 55 && Items2[j] > 0)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items2[j] * 3 * 3;
+                            }
+                            else {
+                                test = Items2[j] * 3;
+                            }
+                        }
+                        else if (appcount > 0 && test > 55)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items2[j] * 3 * (appcount / 2) * 3;
+                            }
+                            else {
+                                test = Items2[j] * 3 * (appcount / 2);
+                            }
+
+                        }
+                        else if (appcount > 0 && test < 55)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items2[j] * 1 * (appcount / 2) * 3;
+                            }
+                            else {
+                                test = Items2[j] * 1 * (appcount / 2);
+                            }
+
+                        }
+                        else
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items2[j] * 1 * 3;
+                            }
+                            else {
+                                test = Items2[j] * 1;
+                            }
+
+                        }
+
+                        Console.WriteLine(croplistname[j] + " made: $" + test);
+                        money += test;
+                    }
+
+
+                }
+            }
+            else if(turn == true) { 
+            for (int i = 0; i < 1; i++)
+            {
+                    for (int j = 0; j < Items.Count; j++)
+                    {
+
+                        test = rand.normal(0);
+
+                        if (test > 55 && Items[j] > 0)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items[j] * 3 * 3;
+                            }
+                            else {
+                                test = Items[j] * 3;
+                            }
+                        }
+                        else if (appcount > 0 && test > 55)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items[j] * 3 * (appcount / 2) * 3;
+                            }
+                            else {
+                                test = Items[j] * 3 * (appcount / 2);
+                            }
+
+                        }
+                        else if (appcount > 0 && test < 55)
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items[j] * 1 * (appcount / 2) * 3;
+                            }
+                            else {
+                                test = Items[j] * 1 * (appcount / 2);
+                            }
+
+                        }
+                        else
+                        {
+                            if (special[j] == game.keepnum)
+                            {
+                                test = Items[j] * 1 * 3;
+                            }
+                            else {
+                                test = Items[j] * 1;
+                            }
+
+                        }Console.WriteLine(croplistname[j] + " made: $" + test);
+                    money += test;
+                    }
+
+                    
+                }
+
+
+            }
+        }
+
+        public void gameover()
         {
             time.stopWatch.Stop();
             Console.WriteLine("Game over!");
@@ -456,12 +643,56 @@ namespace GroceryStore
                 time.TwoSec();
 
             }
+            else if (randnum2 == 2 && turn == false)
+            {
+
+                randomname();
+                time.OneSec();
+                Console.WriteLine("You got a application!");
+                time.TwoSec();
+
+            }
             return randnum2;
         }
 
         public void randomname()
-        {
-            randnum2 = rand.Random(10);
+        {randnum2 = rand.Random(10);
+            if (turn == false) {
+                switch (randnum2)
+                {
+                    case 1:
+                        applicants2.Add("Steve");
+                        break;
+                    case 2:
+                        applicants2.Add("Wanda");
+                        break;
+                    case 3:
+                        applicants2.Add("Carlos");
+                        break;
+                    case 4:
+                        applicants2.Add("Tony");
+                        break;
+                    case 5:
+                        applicants2.Add("Samantha");
+                        break;
+                    case 6:
+                        applicants2.Add("Adam");
+                        break;
+                    case 7:
+                        applicants2.Add("Andrew");
+                        break;
+                    case 8:
+                        applicants2.Add("Lion");
+                        break;
+                    case 9:
+                        applicants2.Add("Penguin");
+                        break;
+                    case 10:
+                        applicants2.Add("Fillip");
+                        break;
+                }
+            }
+            
             switch (randnum2)
             {
                 case 1:
@@ -502,44 +733,90 @@ namespace GroceryStore
 
             Console.WriteLine("List");
             Console.WriteLine("-----------------");
-            for (int j = 0; j < applicants.Count; j++)
+            if (turn == false)
             {
-                Console.WriteLine(applicants[j]);
-                appcount = j;
-
-            }
-            time.OneSec();
-            if (applicants.Count == 0)
-            {
-                menu();
-            }
-            Console.WriteLine("Would you like to hire someone?");
-            user.yesno();
-
-            choice = user.input();
-
-            if (choice == 1)
-            {
-
-                Console.WriteLine("who would you like to hire?");
-                Console.WriteLine("");
-                for (int j = 0; j < applicants.Count; j++)
+                for (int j = 0; j < applicants2.Count; j++)
                 {
-                    int i = 1;
-                    Console.WriteLine(i + ". " + applicants[j]);
-                    i++;
+                    Console.WriteLine(applicants2[j]);
+                    appcount = j;
+
                 }
+                time.OneSec();
+                if (applicants2.Count == 0)
+                {
+                    mainmenu();
+                }
+                Console.WriteLine("Would you like to hire someone?");
+                user.yesno();
+
                 choice = user.input();
 
-                applicants.Remove(applicants[choice - 1]);
-                Console.WriteLine("Applicant hired! you will now make more money");
+                if (choice == 1)
+                {
+
+                    Console.WriteLine("who would you like to hire?");
+                    Console.WriteLine("");
+                    for (int j = 0; j < applicants2.Count; j++)
+                    {
+                        int i = 1;
+                        Console.WriteLine(i + ". " + applicants2[j]);
+                        i++;
+                    }
+                    choice = user.input();
+
+                    applicants2.Remove(applicants2[choice - 1]);
+                    Console.WriteLine("Applicant hired! you will now make more money");
 
 
-                menu();
-            }
-            else if (choice == 2)
-            {
-                menu();
+                    mainmenu();
+                }
+                else if (choice == 2)
+                {
+                    mainmenu();
+                }
+
+
+                else {
+                }
+                for (int j = 0; j < applicants.Count; j++)
+                {
+                    Console.WriteLine(applicants[j]);
+                    appcount = j;
+
+                }
+                time.OneSec();
+                if (applicants.Count == 0)
+                {
+                    mainmenu();
+                }
+                Console.WriteLine("Would you like to hire someone?");
+                user.yesno();
+
+                choice = user.input();
+
+                if (choice == 1)
+                {
+
+                    Console.WriteLine("who would you like to hire?");
+                    Console.WriteLine("");
+                    for (int j = 0; j < applicants.Count; j++)
+                    {
+                        int i = 1;
+                        Console.WriteLine(i + ". " + applicants[j]);
+                        i++;
+                    }
+                    choice = user.input();
+
+                    applicants.Remove(applicants[choice - 1]);
+                    Console.WriteLine("Applicant hired! you will now make more money");
+
+
+                    mainmenu();
+                }
+                else if (choice == 2)
+                {
+                    mainmenu();
+                }
             }
 
 
@@ -558,14 +835,15 @@ namespace GroceryStore
             greeting();
         }
 
-        
+
         public void namechecker()
         {
             Console.WriteLine("Please enter your name: ");
 
             line = Console.ReadLine();
 
-System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true);
+
+            System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true);
             file.Close();
 
             string[] scorearray = File.ReadAllLines("HighScores.txt");
@@ -574,31 +852,51 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
 
             foreach (string array in scorearray)
             {
-                var vals = array.Split(':')[0];
-                if (vals == line)
+                grabName = array.Split(':')[0];
+                if (grabName == line)
                 {
                     Console.WriteLine("Name already exist!");
                     file.Close();
                     namechecker();
-                    
+
                 }
             }
 
             System.IO.StreamWriter add = new System.IO.StreamWriter("HighScores.txt", true);
-            
+
             add.WriteLine(line + ":" + score);
-           add.Close();
+            add.Close();
+
             string[] scorearray2 = File.ReadAllLines("HighScores.txt");
 
-            var orderedScores = scorearray2.OrderByDescending(x => double.Parse(x.Split(':')[1]));
+            foreach (string array in scorearray2)
+            {
+                string grabscore = array.Split(':')[1];
+
+                newscore = double.Parse(grabscore);
+            }
+
+            foreach (string array in scorearray)
+            {
+                string grabscore = array.Split(':')[1];
+
+                newscore = double.Parse(grabscore);
+
+                grabName = array.Split(':')[0];
+                orderedScores.Add(new HighScoreOrganize(grabName, newscore));
+
+            }
+            // var orderedScores = scorearray2.OrderByDescending((x => (x.Split(':')[1])));
+            orderedScores = orderedScores.OrderBy(x => x.score).ToList();
 
             Console.WriteLine("HighScore List");
             Console.WriteLine("--------------------");
+
             int i = 1;
-            foreach (var finalscore in orderedScores)
+            foreach (HighScoreOrganize finalscore in orderedScores)
             {
 
-                Console.WriteLine(i + ". " + finalscore);
+                Console.WriteLine(i + ". " + finalscore.name + ":" + finalscore.score);
 
                 i++;
             }
@@ -620,7 +918,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[0] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 50;
                 money -= 200;
@@ -632,7 +930,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[0] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 100;
                 money -= 400;
@@ -644,7 +942,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[0] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 200;
                 money -= 700;
@@ -656,7 +954,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[0] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 400;
                 money -= 900;
@@ -668,7 +966,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[0] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 500;
                 money -= 1000;
@@ -690,7 +988,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[1] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 50;
                 money -= 200;
@@ -702,7 +1000,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[1] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 100;
                 money -= 400;
@@ -714,7 +1012,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[1] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 200;
                 money -= 700;
@@ -726,7 +1024,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[1] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 400;
                 money -= 900;
@@ -738,7 +1036,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[1] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 500;
                 money -= 1000;
@@ -760,7 +1058,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[2] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 50;
                 money -= 200;
@@ -772,7 +1070,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[2] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 100;
                 money -= 400;
@@ -784,7 +1082,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[2] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 200;
                 money -= 700;
@@ -796,7 +1094,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[2] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 400;
                 money -= 900;
@@ -808,7 +1106,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[2] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 500;
                 money -= 1000;
@@ -831,7 +1129,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[3] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 50;
                 money -= 200;
@@ -843,7 +1141,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[3] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 100;
                 money -= 400;
@@ -855,7 +1153,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[3] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 200;
                 money -= 700;
@@ -867,7 +1165,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[3] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 400;
                 Items[3] += 400;
@@ -879,7 +1177,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[3] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 500;
                 money -= 1000;
@@ -900,7 +1198,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[4] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 50;
                 money -= 200;
@@ -912,7 +1210,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[4] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 100;
                 money -= 400;
@@ -924,7 +1222,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[4] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 200;
                 money -= 700;
@@ -936,7 +1234,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[4] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 400;
                 money -= 900;
@@ -948,7 +1246,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[4] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 500;
                 money -= 1000;
@@ -969,7 +1267,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 200 || shoplist[5] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[5] -= 50;
                 money -= 200;
@@ -981,7 +1279,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 400 || shoplist[4] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[5] -= 100;
                 money -= 400;
@@ -993,7 +1291,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 750 || shoplist[4] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[5] -= 200;
                 money -= 700;
@@ -1005,7 +1303,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 900 || shoplist[4] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[5] -= 400;
                 money -= 900;
@@ -1017,7 +1315,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 1000 || shoplist[4] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[5] -= 500;
                 money -= 1000;
@@ -1038,7 +1336,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 100 || shoplist[0] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 50;
                 money -= 100;
@@ -1049,7 +1347,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 150 || shoplist[0] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 100;
                 money -= 150;
@@ -1060,7 +1358,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 250 || shoplist[0] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 200;
                 money -= 250;
@@ -1071,7 +1369,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 450 || shoplist[0] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 400;
                 money -= 450;
@@ -1082,7 +1380,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 550 || shoplist[0] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[0] -= 500;
                 money -= 550;
@@ -1102,7 +1400,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 100 || shoplist[1] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 50;
                 money -= 100;
@@ -1113,7 +1411,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 150 || shoplist[1] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 100;
                 money -= 150;
@@ -1124,7 +1422,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 250 || shoplist[1] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 200;
                 money -= 250;
@@ -1135,7 +1433,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 450 || shoplist[1] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 400;
                 money -= 450;
@@ -1146,7 +1444,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 550 || shoplist[1] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[1] -= 500;
                 money -= 550;
@@ -1167,7 +1465,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 100 || shoplist[2] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 50;
                 money -= 100;
@@ -1179,7 +1477,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 150)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 100;
                 money -= 150;
@@ -1190,7 +1488,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 250)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 200;
                 money -= 250;
@@ -1201,7 +1499,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 450 || shoplist[2] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 400;
                 money -= 450;
@@ -1212,7 +1510,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 550 || shoplist[2] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[2] -= 500;
                 money -= 550;
@@ -1232,7 +1530,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 100 || shoplist[3] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 50;
                 money -= 100;
@@ -1243,7 +1541,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 150 || shoplist[3] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 100;
                 money -= 150;
@@ -1254,7 +1552,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 250 || shoplist[3] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 200;
                 money -= 250;
@@ -1265,7 +1563,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 450 || shoplist[3] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 400;
                 money -= 450;
@@ -1276,7 +1574,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 550 || shoplist[3] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[3] -= 500;
                 money -= 550;
@@ -1297,7 +1595,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 100 || shoplist[4] < 50)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 50;
                 money -= 100;
@@ -1308,7 +1606,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 150 || shoplist[4] < 100)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 100;
                 money -= 150;
@@ -1319,7 +1617,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 250 || shoplist[4] < 200)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 200;
                 money -= 250;
@@ -1330,7 +1628,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 450 || shoplist[4] < 400)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 400;
                 money -= 450;
@@ -1341,7 +1639,7 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
                 if (money < 550 || shoplist[4] < 500)
                 {
                     user.outofstock();
-                    menu();
+                    mainmenu();
                 }
                 shoplist[4] -= 500;
                 money -= 550;
@@ -1355,62 +1653,123 @@ System.IO.StreamWriter file = new System.IO.StreamWriter("HighScores.txt", true)
             Console.WriteLine(money);
             cropoptions.normal();
             choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 100)
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    menu();
-                }
-                shoplist[5] -= 50;
-                money -= 100;
-                Items[5] += 50;
+                    if (money2 < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 50;
+                    money2 -= 100;
+                    Items2[5] += 50;
 
-            }
-            else if (choice == 2)
-            {
-                if (money < 150)
-                {
-                    user.outofstock();
-                    menu();
                 }
-                shoplist[5] -= 100;
-                money -= 150;
-                Items[5] += 100;
-            }
-            else if (choice == 3)
-            {
-                if (money < 250)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    menu();
+                    if (money2 < 150)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 100;
+                    money2 -= 150;
+                    Items2[5] += 100;
                 }
-                shoplist[5] -= 200;
-                money -= 250;
-                Items[5] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    menu();
+                    if (money2 < 250)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 200;
+                    money2 -= 250;
+                    Items2[5] += 200;
                 }
-                shoplist[5] -= 400;
-                money -= 450;
-                Items[5] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    menu();
+                    if (money2 < 450)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 400;
+                    money2 -= 450;
+                    Items2[5] += 400;
                 }
-                shoplist[5] -= 500;
-                money -= 550;
-                Items[5] += 500;
-            }
+                else if (choice == 5)
+                {
+                    if (money2 < 550)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 500;
+                    money2 -= 550;
+                    Items2[5] += 500;
+                }
+                else {
+
+                    if (choice == 1)
+                    {
+                        if (money < 100)
+                        {
+                            user.outofstock();
+                            mainmenu();
+                        }
+                        shoplist[5] -= 50;
+                        money -= 100;
+                        Items[5] += 50;
+
+                    }
+                    else if (choice == 2)
+                    {
+                        if (money < 150)
+                        {
+                            user.outofstock();
+                            mainmenu();
+                        }
+                        shoplist[5] -= 100;
+                        money -= 150;
+                        Items[5] += 100;
+                    }
+                    else if (choice == 3)
+                    {
+                        if (money < 250)
+                        {
+                            user.outofstock();
+                            mainmenu();
+                        }
+                        shoplist[5] -= 200;
+                        money -= 250;
+                        Items[5] += 200;
+                    }
+                    else if (choice == 4)
+                    {
+                        if (money < 450)
+                        {
+                            user.outofstock();
+                            mainmenu();
+                        }
+                        shoplist[5] -= 400;
+                        money -= 450;
+                        Items[5] += 400;
+                    }
+                    else if (choice == 5)
+                    {
+                        if (money < 550)
+                        {
+                            user.outofstock();
+                            mainmenu();
+                        }
+                        shoplist[5] -= 500;
+                        money -= 550;
+                        Items[5] += 500;
+                    }
+                } }
 
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStore
 {
-    class Interface
+    class GameQuestions
     {
         string line;
         bool res;

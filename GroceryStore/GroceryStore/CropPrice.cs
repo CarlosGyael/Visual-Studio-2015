@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStore
 {
-    class CropOptions
+    class CropPrice
     {
         public void normal()
         {
