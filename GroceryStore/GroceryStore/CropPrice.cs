@@ -8,9 +8,6 @@ namespace GroceryStore
 {
     class CropOptions
     {
-        int choice;
-        
-
         public void normal()
         {
             Console.WriteLine("1. $100 = 50 pieces");
@@ -28,16 +25,5 @@ namespace GroceryStore
             Console.WriteLine("4. $900 = 400 pieces");
             Console.WriteLine("5. $1000 = 500 pieces");
         }
-        public void weak()
-        {
-            Console.WriteLine("1. $10 = 50 pieces");
-            Console.WriteLine("2. $50 = 100 pieces");
-            Console.WriteLine("3. $150 = 200 pieces");
-            Console.WriteLine("4. $350 = 400 pieces");
-            Console.WriteLine("5. $450 = 500 pieces");
-        }
-
-
-       
-    }
+         }
 }
