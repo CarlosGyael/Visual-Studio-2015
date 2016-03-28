@@ -61,7 +61,8 @@ namespace GroceryStore
             {
                 players = false;
             }
-            else if (choice == 2) {
+            else if (choice == 2)
+            {
                 players = true;
                 turn = true;
             }
@@ -196,7 +197,7 @@ namespace GroceryStore
 
             if (choice == 1)
             {
-                if (money == 0 || money2 ==0)
+                if (money == 0 || money2 == 0)
                 {
                     Console.WriteLine("you dont have any money!");
                     mainmenu();
@@ -480,13 +481,14 @@ namespace GroceryStore
                         gameover();
                     }
                 }
-                
+
             }
         }
 
         public void startGame()
         {
-            if (players == true) {
+            if (players == true)
+            {
 
                 if (turn == true)
                 {
@@ -531,8 +533,9 @@ namespace GroceryStore
                 turn = true;
                 mainmenu();
             }
-            else if (players == false) {
-                
+            else if (players == false)
+            {
+
                 day += 1;
                 mainmenu();
             }
@@ -543,7 +546,8 @@ namespace GroceryStore
 
         public void arithmetic()
         {
-            if (turn == false) {
+            if (turn == false)
+            {
                 for (int i = 0; i < 1; i++)
                 {
                     for (int j = 0; j < Items2.Count; j++)
@@ -602,9 +606,10 @@ namespace GroceryStore
 
                 }
             }
-            else if(turn == true) { 
-            for (int i = 0; i < 1; i++)
+            else if (turn == true)
             {
+                for (int i = 0; i < 1; i++)
+                {
                     for (int j = 0; j < Items.Count; j++)
                     {
 
@@ -652,11 +657,12 @@ namespace GroceryStore
                                 test = Items[j] * 1;
                             }
 
-                        }Console.WriteLine(croplistname[j] + " made: $" + test);
-                    money += test;
+                        }
+                        Console.WriteLine(croplistname[j] + " made: $" + test);
+                        money += test;
                     }
 
-                    
+
                 }
 
 
@@ -713,8 +719,10 @@ namespace GroceryStore
         }
 
         public void randomname()
-        {randnum2 = rand.Random(10);
-            if (turn == false) {
+        {
+            randnum2 = rand.Random(10);
+            if (turn == false)
+            {
                 switch (randnum2)
                 {
                     case 1:
@@ -749,7 +757,7 @@ namespace GroceryStore
                         break;
                 }
             }
-            
+
             switch (randnum2)
             {
                 case 1:
@@ -882,17 +890,28 @@ namespace GroceryStore
         public void HighScore()
         {
             if (players == true)
-            { Console.WriteLine("player 1"); }
-                double recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
-            score = recordedtime - money;
-            Console.WriteLine("Your high score is: " + score);
-
-
-            namechecker();
-            if (players == true)
             {
-                Console.WriteLine("player2");
-                HighScore();
+                Console.WriteLine("player 1");
+                double recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
+                score = recordedtime - money;
+                Console.WriteLine("Your high score is: " + score);
+                Console.WriteLine("player 1");
+                namechecker();
+
+                time.TwoSec();
+                Console.WriteLine("player 2");
+                recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
+                score = recordedtime - money;
+                Console.WriteLine("Your high score is: " + score);
+                Console.WriteLine("player 2");
+                namechecker();
+            }
+            else if (players == false)
+            {
+                double recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
+                score = recordedtime - money;
+                Console.WriteLine("Your high score is: " + score);
+                namechecker();
             }
 
 
@@ -967,7 +986,7 @@ namespace GroceryStore
             time.OneSec();
             Console.WriteLine("");
             file.Close();
-            
+
         }
 
         public void cornspecial()
@@ -1806,7 +1825,7 @@ namespace GroceryStore
                     special[5] += 6;
                 }
             }
-            }
+        }
 
         public void corn()
         {
@@ -2581,7 +2600,8 @@ namespace GroceryStore
                         money -= 550;
                         Items[5] += 500;
                     }
-                } }
+                }
+            }
 
         }
     }
