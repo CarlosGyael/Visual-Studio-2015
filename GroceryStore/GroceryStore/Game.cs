@@ -63,6 +63,7 @@ namespace GroceryStore
             }
             else if (choice == 2) {
                 players = true;
+                turn = true;
             }
 
             while (incorrect)
@@ -71,10 +72,6 @@ namespace GroceryStore
                 user.yesno();
 
                 choice = user.input();
-                {
-
-                }
-
 
                 if (choice == 1)
                 {
@@ -90,7 +87,7 @@ namespace GroceryStore
                 {
 
                     startinstructions();
-                    mainmenu();
+                    readytostart();
 
                 }
                 else if (line == "")
@@ -123,7 +120,7 @@ namespace GroceryStore
         }
 
 
-        public void startgame()
+        public void readytostart()
         {
             while (incorrect)
             {
@@ -315,13 +312,12 @@ namespace GroceryStore
                 if (players == true)
                 {
 
-                    if (turn == true)
+
+                    if (turn == false)
                     {
-                        Console.WriteLine("Player 1 turn");
-                    }
-                    else if (turn == false)
-                    {
+                        Console.WriteLine("");
                         Console.WriteLine("Player 2 turn");
+                        Console.WriteLine("");
                         Console.WriteLine("..... returning to menu");
 
                         time.TwoSec();
@@ -373,58 +369,118 @@ namespace GroceryStore
                             gameover();
                         }
                     }
+                    else if (turn == true)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("Player 1 turn");
+                        Console.WriteLine("");
 
+                        Console.WriteLine("..... returning to menu");
+
+                        time.TwoSec();
+
+                        Console.WriteLine("");
+
+                        Console.WriteLine("Grocery Store Menu");
+                        Console.WriteLine("------------------");
+                        Console.WriteLine("Day:  {1}                                          Money:  ${0}", money, day);
+                        time.stopWatch.Stop();
+                        Console.Write("Time: ");
+                        time.elapsed();
+                        time.stopWatch.Start();
+                        Console.WriteLine("News: ");
+                        game.news(randnum);
+
+                        Console.WriteLine("");
+                        Console.WriteLine("1. Start day");
+                        Console.WriteLine("2. Buy crops");
+                        Console.WriteLine("3. My crops");
+                        Console.WriteLine("4. Look at applications");
+                        Console.WriteLine("5. Start over");
+
+                        if (day == 10)
+                        {
+                            Console.WriteLine("This is your last day!");
+                        }
+
+                        choice = user.input();
+
+                        if (choice == 1)
+                        {
+                            startGame();
+                        }
+                        else if (choice == 2)
+                        {
+                            shopmenu();
+                        }
+                        else if (choice == 3)
+                        {
+                            mycrops();
+                        }
+                        else if (choice == 4)
+                        {
+                            viewapplication();
+                        }
+                        else if (choice == 5)
+                        {
+                            gameover();
+                        }
+                    }
                 }
-                Console.WriteLine("..... returning to menu");
-
-                time.TwoSec();
-
-                Console.WriteLine("");
-
-                Console.WriteLine("Grocery Store Menu");
-                Console.WriteLine("------------------");
-                Console.WriteLine("Day:  {1}                                          Money:  ${0}", money, day);
-                time.stopWatch.Stop();
-                Console.Write("Time: ");
-                time.elapsed();
-                time.stopWatch.Start();
-                Console.WriteLine("News: ");
-                game.news(randnum);
-
-                Console.WriteLine("");
-                Console.WriteLine("1. Start day");
-                Console.WriteLine("2. Buy crops");
-                Console.WriteLine("3. My crops");
-                Console.WriteLine("4. Look at applications");
-                Console.WriteLine("5. Start over");
-
-                if (day == 10)
+                else
                 {
-                    Console.WriteLine("This is your last day!");
-                }
+                    Console.WriteLine("..... returning to menu");
 
-                choice = user.input();
+                    time.TwoSec();
 
-                if (choice == 1)
-                {
-                    startGame();
+                    Console.WriteLine("");
+
+                    Console.WriteLine("Grocery Store Menu");
+                    Console.WriteLine("------------------");
+                    Console.WriteLine("Day:  {1}                                          Money:  ${0}", money, day);
+                    time.stopWatch.Stop();
+                    Console.Write("Time: ");
+                    time.elapsed();
+                    time.stopWatch.Start();
+                    Console.WriteLine("News: ");
+                    game.news(randnum);
+
+                    Console.WriteLine("");
+                    Console.WriteLine("1. Start day");
+                    Console.WriteLine("2. Buy crops");
+                    Console.WriteLine("3. My crops");
+                    Console.WriteLine("4. Look at applications");
+                    Console.WriteLine("5. Start over");
+
+                    if (day == 10)
+                    {
+                        Console.WriteLine("This is your last day!");
+                    }
+
+                    choice = user.input();
+
+                    if (choice == 1)
+                    {
+                        startGame();
+                    }
+                    else if (choice == 2)
+                    {
+                        shopmenu();
+                    }
+                    else if (choice == 3)
+                    {
+                        mycrops();
+                    }
+                    else if (choice == 4)
+                    {
+                        viewapplication();
+                    }
+                    else if (choice == 5)
+                    {
+                        gameover();
+                    }
                 }
-                else if (choice == 2)
-                {
-                    shopmenu();
-                }
-                else if (choice == 3)
-                {
-                    mycrops();
-                }
-                else if (choice == 4)
-                {
-                    viewapplication();
-                }
-                else if (choice == 5)
-                {
-                    gameover();
-                }
+                
             }
         }
 
@@ -442,7 +498,7 @@ namespace GroceryStore
                 }
 
             }
-            
+            Console.WriteLine("");
             Console.WriteLine("Starting Day....");
             time.TwoSec();
 
@@ -461,6 +517,7 @@ namespace GroceryStore
             for (int j = 0; j < Items2.Count; j++)
             {
                 Items2[j] = 0;
+                Items[j] = 0;
                 shoplist[j] = 500;
                 special[j] = 0;
             }
@@ -539,7 +596,7 @@ namespace GroceryStore
                         }
 
                         Console.WriteLine(croplistname[j] + " made: $" + test);
-                        money += test;
+                        money2 += test;
                     }
 
 
@@ -634,7 +691,7 @@ namespace GroceryStore
         public int application()
         {
             randnum2 = rand.Random(2);
-            if (randnum2 == 2)
+            if (randnum2 == 2 && turn == false)
             {
 
                 randomname();
@@ -643,7 +700,7 @@ namespace GroceryStore
                 time.TwoSec();
 
             }
-            else if (randnum2 == 2 && turn == false)
+            else if (randnum2 == 2)
             {
 
                 randomname();
@@ -777,45 +834,46 @@ namespace GroceryStore
 
 
                 else {
-                }
-                for (int j = 0; j < applicants.Count; j++)
-                {
-                    Console.WriteLine(applicants[j]);
-                    appcount = j;
 
-                }
-                time.OneSec();
-                if (applicants.Count == 0)
-                {
-                    mainmenu();
-                }
-                Console.WriteLine("Would you like to hire someone?");
-                user.yesno();
-
-                choice = user.input();
-
-                if (choice == 1)
-                {
-
-                    Console.WriteLine("who would you like to hire?");
-                    Console.WriteLine("");
                     for (int j = 0; j < applicants.Count; j++)
                     {
-                        int i = 1;
-                        Console.WriteLine(i + ". " + applicants[j]);
-                        i++;
+                        Console.WriteLine(applicants[j]);
+                        appcount = j;
+
                     }
+                    time.OneSec();
+                    if (applicants.Count == 0)
+                    {
+                        mainmenu();
+                    }
+                    Console.WriteLine("Would you like to hire someone?");
+                    user.yesno();
+
                     choice = user.input();
 
-                    applicants.Remove(applicants[choice - 1]);
-                    Console.WriteLine("Applicant hired! you will now make more money");
+                    if (choice == 1)
+                    {
+
+                        Console.WriteLine("who would you like to hire?");
+                        Console.WriteLine("");
+                        for (int j = 0; j < applicants.Count; j++)
+                        {
+                            int i = 1;
+                            Console.WriteLine(i + ". " + applicants[j]);
+                            i++;
+                        }
+                        choice = user.input();
+
+                        applicants.Remove(applicants[choice - 1]);
+                        Console.WriteLine("Applicant hired! you will now make more money");
 
 
-                    mainmenu();
-                }
-                else if (choice == 2)
-                {
-                    mainmenu();
+                        mainmenu();
+                    }
+                    else if (choice == 2)
+                    {
+                        mainmenu();
+                    }
                 }
             }
 
@@ -823,13 +881,19 @@ namespace GroceryStore
         }
         public void HighScore()
         {
-            double recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
+            if (players == true)
+            { Console.WriteLine("player 1"); }
+                double recordedtime = time.stopWatch.Elapsed.TotalMilliseconds;
             score = recordedtime - money;
             Console.WriteLine("Your high score is: " + score);
 
 
             namechecker();
-
+            if (players == true)
+            {
+                Console.WriteLine("player2");
+                HighScore();
+            }
 
 
             greeting();
@@ -903,754 +967,1502 @@ namespace GroceryStore
             time.OneSec();
             Console.WriteLine("");
             file.Close();
+            
         }
 
         public void cornspecial()
         {
-            Console.Write("corn");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
+            if (turn == false)
+            {
+                Console.Write("corn");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
 
-            choice = user.input();
-            if (choice == 1)
-            {
-                if (money < 200 || shoplist[0] < 50)
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[0] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 50;
+                    money2 -= 200;
+                    Items2[0] += 50;
+                    special[0] += 1;
                 }
-                shoplist[0] -= 50;
-                money -= 200;
-                Items[0] += 50;
-                special[0] += 1;
+                else if (choice == 2)
+                {
+                    if (money2 < 400 || shoplist[0] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 100;
+                    money2 -= 400;
+                    Items2[0] += 100;
+                    special[0] += 1;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 750 || shoplist[0] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 200;
+                    money2 -= 700;
+                    Items2[0] += 200;
+                    special[0] += 1;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 900 || shoplist[0] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 400;
+                    money2 -= 900;
+                    Items2[0] += 400;
+                    special[0] += 1;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 1000 || shoplist[0] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 500;
+                    money2 -= 1000;
+                    Items2[0] += 500;
+                    special[0] += 1;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[0] < 100)
+            else {
+                Console.Write("corn");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 200 || shoplist[0] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 50;
+                    money -= 200;
+                    Items[0] += 50;
+                    special[0] += 1;
                 }
-                shoplist[0] -= 100;
-                money -= 400;
-                Items[0] += 100;
-                special[0] += 1;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[0] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 400 || shoplist[0] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 100;
+                    money -= 400;
+                    Items[0] += 100;
+                    special[0] += 1;
                 }
-                shoplist[0] -= 200;
-                money -= 700;
-                Items[0] += 200;
-                special[0] += 1;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[0] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 750 || shoplist[0] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 200;
+                    money -= 700;
+                    Items[0] += 200;
+                    special[0] += 1;
                 }
-                shoplist[0] -= 400;
-                money -= 900;
-                Items[0] += 400;
-                special[0] += 1;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[0] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 900 || shoplist[0] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 400;
+                    money -= 900;
+                    Items[0] += 400;
+                    special[0] += 1;
                 }
-                shoplist[0] -= 500;
-                money -= 1000;
-                Items[0] += 500;
-                special[0] += 1;
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[0] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 500;
+                    money -= 1000;
+                    Items[0] += 500;
+                    special[0] += 1;
+                }
             }
         }
-
         public void potatoespecial()
         {
-            Console.Write("Potatoe");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
-            choice = user.input();
+            if (turn == false)
+            {
+                Console.Write("Potatoe");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
+                choice = user.input();
 
-            if (choice == 1)
-            {
-                if (money < 200 || shoplist[1] < 50)
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[1] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 50;
+                    money2 -= 200;
+                    Items2[1] += 50;
+                    special[1] += 2;
                 }
-                shoplist[1] -= 50;
-                money -= 200;
-                Items[1] += 50;
-                special[1] += 2;
+                else if (choice == 2)
+                {
+                    if (money2 < 400 || shoplist[1] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 100;
+                    money2 -= 400;
+                    Items2[1] += 100;
+                    special[1] += 2;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 750 || shoplist[1] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 200;
+                    money2 -= 700;
+                    Items2[1] += 200;
+                    special[1] += 2;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 900 || shoplist[1] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 400;
+                    money2 -= 900;
+                    Items2[1] += 400;
+                    special[1] += 2;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 1000 || shoplist[1] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 500;
+                    money2 -= 1000;
+                    Items2[1] += 500;
+                    special[1] += 2;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[1] < 100)
+            else {
+                Console.Write("Potatoe");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+                choice = user.input();
+
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 200 || shoplist[1] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 50;
+                    money -= 200;
+                    Items[1] += 50;
+                    special[1] += 2;
                 }
-                shoplist[1] -= 100;
-                money -= 400;
-                Items[1] += 100;
-                special[1] += 2;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[1] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 400 || shoplist[1] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 100;
+                    money -= 400;
+                    Items[1] += 100;
+                    special[1] += 2;
                 }
-                shoplist[1] -= 200;
-                money -= 700;
-                Items[1] += 200;
-                special[1] += 2;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[1] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 750 || shoplist[1] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 200;
+                    money -= 700;
+                    Items[1] += 200;
+                    special[1] += 2;
                 }
-                shoplist[1] -= 400;
-                money -= 900;
-                Items[1] += 400;
-                special[1] += 2;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[1] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 900 || shoplist[1] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 400;
+                    money -= 900;
+                    Items[1] += 400;
+                    special[1] += 2;
                 }
-                shoplist[1] -= 500;
-                money -= 1000;
-                Items[1] += 500;
-                special[1] += 2;
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[1] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 500;
+                    money -= 1000;
+                    Items[1] += 500;
+                    special[1] += 2;
+                }
             }
         }
 
 
         public void flourspecial()
         {
-            Console.Write("Flour");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 200 || shoplist[2] < 50)
+                Console.Write("Flour");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[2] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 50;
+                    money2 -= 200;
+                    Items2[2] += 50;
+                    special[2] += 3;
                 }
-                shoplist[2] -= 50;
-                money -= 200;
-                Items[2] += 50;
-                special[2] += 3;
+                else if (choice == 2)
+                {
+                    if (money2 < 400 || shoplist[2] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 100;
+                    money2 -= 400;
+                    Items2[2] += 100;
+                    special[2] += 3;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 750 || shoplist[2] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 200;
+                    money2 -= 700;
+                    Items2[2] += 200;
+                    special[2] += 3;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 900 || shoplist[2] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 400;
+                    money2 -= 900;
+                    Items2[2] += 400;
+                    special[2] += 3;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 1000 || shoplist[2] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 500;
+                    money2 -= 1000;
+                    Items2[2] += 50;
+                    special[2] += 3;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[2] < 100)
+            else {
+                Console.Write("Flour");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 200 || shoplist[2] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 50;
+                    money -= 200;
+                    Items[2] += 50;
+                    special[2] += 3;
                 }
-                shoplist[2] -= 100;
-                money -= 400;
-                Items[2] += 100;
-                special[2] += 3;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[2] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 400 || shoplist[2] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 100;
+                    money -= 400;
+                    Items[2] += 100;
+                    special[2] += 3;
                 }
-                shoplist[2] -= 200;
-                money -= 700;
-                Items[2] += 200;
-                special[2] += 3;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[2] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 750 || shoplist[2] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 200;
+                    money -= 700;
+                    Items[2] += 200;
+                    special[2] += 3;
                 }
-                shoplist[2] -= 400;
-                money -= 900;
-                Items[2] += 400;
-                special[2] += 3;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[2] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 900 || shoplist[2] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 400;
+                    money -= 900;
+                    Items[2] += 400;
+                    special[2] += 3;
                 }
-                shoplist[2] -= 500;
-                money -= 1000;
-                Items[2] += 50;
-                special[2] += 3;
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[2] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 500;
+                    money -= 1000;
+                    Items[2] += 50;
+                    special[2] += 3;
+                }
             }
         }
-
 
         public void tomatoespecial()
         {
-            Console.Write("Tomatoes");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
-            choice = user.input();
+            if (turn == false)
+            {
+                Console.Write("Tomatoes");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
+                choice = user.input();
 
-            if (choice == 1)
-            {
-                if (money < 200 || shoplist[3] < 50)
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[3] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 50;
+                    money2 -= 200;
+                    Items2[3] += 50;
+                    special[3] += 4;
                 }
-                shoplist[3] -= 50;
-                money -= 200;
-                Items[3] += 50;
-                special[3] += 4;
+                else if (choice == 2)
+                {
+                    if (money2 < 400 || shoplist[3] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 100;
+                    money2 -= 400;
+                    Items2[3] += 100;
+                    special[3] += 4;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 750 || shoplist[3] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 200;
+                    money2 -= 700;
+                    Items2[3] += 200;
+                    special[3] += 4;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 900 || shoplist[3] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 400;
+                    Items2[3] += 400;
+                    money2 -= 900;
+                    special[3] += 4;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 1000 || shoplist[3] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 500;
+                    money2 -= 1000;
+                    Items2[3] += 500;
+                    special[3] += 4;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[3] < 100)
+            else {
+                Console.Write("Tomatoes");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+                choice = user.input();
+
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 200 || shoplist[3] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 50;
+                    money -= 200;
+                    Items[3] += 50;
+                    special[3] += 4;
                 }
-                shoplist[3] -= 100;
-                money -= 400;
-                Items[3] += 100;
-                special[3] += 4;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[3] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 400 || shoplist[3] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 100;
+                    money -= 400;
+                    Items[3] += 100;
+                    special[3] += 4;
                 }
-                shoplist[3] -= 200;
-                money -= 700;
-                Items[3] += 200;
-                special[3] += 4;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[3] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 750 || shoplist[3] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 200;
+                    money -= 700;
+                    Items[3] += 200;
+                    special[3] += 4;
                 }
-                shoplist[3] -= 400;
-                Items[3] += 400;
-                money -= 900;
-                special[3] += 4;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[3] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 900 || shoplist[3] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 400;
+                    Items[3] += 400;
+                    money -= 900;
+                    special[3] += 4;
                 }
-                shoplist[3] -= 500;
-                money -= 1000;
-                Items[3] += 500;
-                special[3] += 4;
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[3] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 500;
+                    money -= 1000;
+                    Items[3] += 500;
+                    special[3] += 4;
+                }
             }
         }
-
         public void lettucespecial()
         {
-            Console.Write("lettuce");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 200 || shoplist[4] < 50)
+                Console.Write("lettuce");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[4] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 50;
+                    money2 -= 200;
+                    Items2[4] += 50;
+                    special[4] += 5;
                 }
-                shoplist[4] -= 50;
-                money -= 200;
-                Items[4] += 50;
-                special[4] += 5;
+                else if (choice == 2)
+                {
+                    if (money2 < 400 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 100;
+                    money2 -= 400;
+                    Items2[4] += 100;
+                    special[4] += 5;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 750 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 200;
+                    money2 -= 700;
+                    Items2[4] += 200;
+                    special[4] += 5;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 900 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 400;
+                    money2 -= 900;
+                    Items2[4] += 400;
+                    special[4] += 5;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 1000 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 500;
+                    money2 -= 1000;
+                    Items2[4] += 500;
+                    special[4] += 5;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[4] < 100)
+            else {
+                Console.Write("lettuce");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 200 || shoplist[4] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 50;
+                    money -= 200;
+                    Items[4] += 50;
+                    special[4] += 5;
                 }
-                shoplist[4] -= 100;
-                money -= 400;
-                Items[4] += 100;
-                special[4] += 5;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[4] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 400 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 100;
+                    money -= 400;
+                    Items[4] += 100;
+                    special[4] += 5;
                 }
-                shoplist[4] -= 200;
-                money -= 700;
-                Items[4] += 200;
-                special[4] += 5;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[4] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 750 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 200;
+                    money -= 700;
+                    Items[4] += 200;
+                    special[4] += 5;
                 }
-                shoplist[4] -= 400;
-                money -= 900;
-                Items[4] += 400;
-                special[4] += 5;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[4] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 900 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 400;
+                    money -= 900;
+                    Items[4] += 400;
+                    special[4] += 5;
                 }
-                shoplist[4] -= 500;
-                money -= 1000;
-                Items[4] += 500;
-                special[4] += 5;
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 500;
+                    money -= 1000;
+                    Items[4] += 500;
+                    special[4] += 5;
+                }
             }
         }
-
         public void beansspecial()
         {
-            Console.Write("beans");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.valueable();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 200 || shoplist[5] < 50)
+                Console.Write("beans");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 200 || shoplist[5] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 50;
+                    money2 -= 200;
+                    Items2[5] += 50;
+                    special[5] += 6;
                 }
-                shoplist[5] -= 50;
-                money -= 200;
-                Items[5] += 50;
-                special[5] += 6;
-            }
-            else if (choice == 2)
-            {
-                if (money < 400 || shoplist[4] < 100)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 400 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 100;
+                    money2 -= 400;
+                    Items2[5] += 100;
+                    special[5] += 6;
                 }
-                shoplist[5] -= 100;
-                money -= 400;
-                Items[5] += 100;
-                special[5] += 6;
-            }
-            else if (choice == 3)
-            {
-                if (money < 750 || shoplist[4] < 200)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 750 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 200;
+                    money2 -= 700;
+                    Items2[5] += 200;
+                    special[5] += 6;
                 }
-                shoplist[5] -= 200;
-                money -= 700;
-                Items[5] += 200;
-                special[5] += 6;
-            }
-            else if (choice == 4)
-            {
-                if (money < 900 || shoplist[4] < 400)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 900 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 400;
+                    money2 -= 900;
+                    Items2[5] += 400;
+                    special[5] += 6;
                 }
-                shoplist[5] -= 400;
-                money -= 900;
-                Items[5] += 400;
-                special[5] += 6;
-            }
-            else if (choice == 5)
-            {
-                if (money < 1000 || shoplist[4] < 500)
+                else if (choice == 5)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 1000 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 500;
+                    money2 -= 1000;
+                    Items2[5] += 500;
+                    special[5] += 6;
                 }
-                shoplist[5] -= 500;
-                money -= 1000;
-                Items[5] += 500;
-                special[5] += 6;
             }
-        }
+            else {
+                Console.Write("beans");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.valueable();
+                choice = user.input();
+                if (choice == 1)
+                {
+                    if (money < 200 || shoplist[5] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 50;
+                    money -= 200;
+                    Items[5] += 50;
+                    special[5] += 6;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 400 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 100;
+                    money -= 400;
+                    Items[5] += 100;
+                    special[5] += 6;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 750 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 200;
+                    money -= 700;
+                    Items[5] += 200;
+                    special[5] += 6;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 900 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 400;
+                    money -= 900;
+                    Items[5] += 400;
+                    special[5] += 6;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 1000 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[5] -= 500;
+                    money -= 1000;
+                    Items[5] += 500;
+                    special[5] += 6;
+                }
+            }
+            }
 
         public void corn()
         {
-            Console.Write("corn");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.normal();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 100 || shoplist[0] < 50)
+                Console.Write("corn");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 100 || shoplist[0] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 50;
+                    money2 -= 100;
+                    Items2[0] += 50;
                 }
-                shoplist[0] -= 50;
-                money -= 100;
-                Items[0] += 50;
+                else if (choice == 2)
+                {
+                    if (money2 < 150 || shoplist[0] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 100;
+                    money2 -= 150;
+                    Items2[0] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 250 || shoplist[0] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 200;
+                    money2 -= 250;
+                    Items2[0] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 450 || shoplist[0] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 400;
+                    money2 -= 450;
+                    Items2[0] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 550 || shoplist[0] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 500;
+                    money2 -= 550;
+                    Items2[0] += 500;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 150 || shoplist[0] < 100)
+            else {
+                Console.Write("corn");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 100 || shoplist[0] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 50;
+                    money -= 100;
+                    Items[0] += 50;
                 }
-                shoplist[0] -= 100;
-                money -= 150;
-                Items[0] += 100;
-            }
-            else if (choice == 3)
-            {
-                if (money < 250 || shoplist[0] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 150 || shoplist[0] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 100;
+                    money -= 150;
+                    Items[0] += 100;
                 }
-                shoplist[0] -= 200;
-                money -= 250;
-                Items[0] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450 || shoplist[0] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 250 || shoplist[0] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 200;
+                    money -= 250;
+                    Items[0] += 200;
                 }
-                shoplist[0] -= 400;
-                money -= 450;
-                Items[0] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550 || shoplist[0] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 450 || shoplist[0] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 400;
+                    money -= 450;
+                    Items[0] += 400;
                 }
-                shoplist[0] -= 500;
-                money -= 550;
-                Items[0] += 500;
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[0] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[0] -= 500;
+                    money -= 550;
+                    Items[0] += 500;
+                }
             }
         }
 
         public void potatoe()
         {
-            Console.Write("potatoe");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.normal();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 100 || shoplist[1] < 50)
+
+                Console.Write("potatoe");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 100 || shoplist[1] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 50;
+                    money2 -= 100;
+                    Items2[1] += 50;
                 }
-                shoplist[1] -= 50;
-                money -= 100;
-                Items[1] += 50;
+                else if (choice == 2)
+                {
+                    if (money2 < 150 || shoplist[1] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 100;
+                    money2 -= 150;
+                    Items2[1] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money2 < 250 || shoplist[1] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 200;
+                    money2 -= 250;
+                    Items2[1] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money2 < 450 || shoplist[1] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 400;
+                    money2 -= 450;
+                    Items2[1] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money2 < 550 || shoplist[1] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 500;
+                    money2 -= 550;
+                    Items2[1] += 500;
+                }
             }
-            else if (choice == 2)
-            {
-                if (money < 150 || shoplist[1] < 100)
+            else {
+                Console.Write("potatoe");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 100 || shoplist[1] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 50;
+                    money -= 100;
+                    Items[1] += 50;
                 }
-                shoplist[1] -= 100;
-                money -= 150;
-                Items[1] += 100;
-            }
-            else if (choice == 3)
-            {
-                if (money < 250 || shoplist[1] < 200)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 150 || shoplist[1] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 100;
+                    money -= 150;
+                    Items[1] += 100;
                 }
-                shoplist[1] -= 200;
-                money -= 250;
-                Items[1] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450 || shoplist[1] < 400)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 250 || shoplist[1] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 200;
+                    money -= 250;
+                    Items[1] += 200;
                 }
-                shoplist[1] -= 400;
-                money -= 450;
-                Items[1] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550 || shoplist[1] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 450 || shoplist[1] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 400;
+                    money -= 450;
+                    Items[1] += 400;
                 }
-                shoplist[1] -= 500;
-                money -= 550;
-                Items[1] += 500;
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[1] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[1] -= 500;
+                    money -= 550;
+                    Items[1] += 500;
+                }
             }
         }
-
         public void flour()
         {
-            Console.Write("flour");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.normal();
-            choice = user.input();
+            if (turn == false)
+            {
+                Console.Write("flour");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.normal();
+                choice = user.input();
 
-            if (choice == 1)
-            {
-                if (money < 100 || shoplist[2] < 50)
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
-                }
-                shoplist[2] -= 50;
-                money -= 100;
-                Items[2] += 50;
+                    if (money2 < 100 || shoplist[2] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 50;
+                    money2 -= 100;
+                    Items2[2] += 50;
 
-            }
-            else if (choice == 2 || shoplist[2] < 100)
-            {
-                if (money < 150)
-                {
-                    user.outofstock();
-                    mainmenu();
                 }
-                shoplist[2] -= 100;
-                money -= 150;
-                Items[2] += 100;
-            }
-            else if (choice == 3 || shoplist[2] < 200)
-            {
-                if (money < 250)
+                else if (choice == 2 || shoplist[2] < 100)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 150)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 100;
+                    money2 -= 150;
+                    Items2[2] += 100;
                 }
-                shoplist[2] -= 200;
-                money -= 250;
-                Items[2] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450 || shoplist[2] < 400)
+                else if (choice == 3 || shoplist[2] < 200)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 250)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 200;
+                    money2 -= 250;
+                    Items2[2] += 200;
                 }
-                shoplist[2] -= 400;
-                money -= 450;
-                Items[2] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550 || shoplist[2] < 500)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 450 || shoplist[2] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 400;
+                    money2 -= 450;
+                    Items2[2] += 400;
                 }
-                shoplist[2] -= 500;
-                money -= 550;
-                Items[2] += 500;
+                else if (choice == 5)
+                {
+                    if (money2 < 550 || shoplist[2] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 500;
+                    money2 -= 550;
+                    Items2[2] += 500;
+                }
+            }
+            else {
+                Console.Write("flour");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.normal();
+                choice = user.input();
+
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[2] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 50;
+                    money -= 100;
+                    Items[2] += 50;
+
+                }
+                else if (choice == 2 || shoplist[2] < 100)
+                {
+                    if (money < 150)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 100;
+                    money -= 150;
+                    Items[2] += 100;
+                }
+                else if (choice == 3 || shoplist[2] < 200)
+                {
+                    if (money < 250)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 200;
+                    money -= 250;
+                    Items[2] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[2] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 400;
+                    money -= 450;
+                    Items[2] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[2] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[2] -= 500;
+                    money -= 550;
+                    Items[2] += 500;
+                }
             }
         }
 
         public void tomatoe()
         {
-            Console.Write("tomatoe");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.normal();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 100 || shoplist[3] < 50)
+                Console.Write("tomatoe");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 100 || shoplist[3] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 50;
+                    money2 -= 100;
+                    Items2[3] += 50;
                 }
-                shoplist[3] -= 50;
-                money -= 100;
-                Items[3] += 50;
-            }
-            else if (choice == 2)
-            {
-                if (money < 150 || shoplist[3] < 100)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 150 || shoplist[3] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 100;
+                    money2 -= 150;
+                    Items2[3] += 100;
                 }
-                shoplist[3] -= 100;
-                money -= 150;
-                Items[3] += 100;
-            }
-            else if (choice == 3)
-            {
-                if (money < 250 || shoplist[3] < 200)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 250 || shoplist[3] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 200;
+                    money2 -= 250;
+                    Items2[3] += 200;
                 }
-                shoplist[3] -= 200;
-                money -= 250;
-                Items[3] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450 || shoplist[3] < 400)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 450 || shoplist[3] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 400;
+                    money2 -= 450;
+                    Items2[3] += 400;
                 }
-                shoplist[3] -= 400;
-                money -= 450;
-                Items[3] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550 || shoplist[3] < 500)
+                else if (choice == 5)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 550 || shoplist[3] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 500;
+                    money2 -= 550;
+                    Items2[3] += 500;
                 }
-                shoplist[3] -= 500;
-                money -= 550;
-                Items[3] += 500;
-            }
 
+            }
+            else {
+                Console.Write("tomatoe");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[3] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 50;
+                    money -= 100;
+                    Items[3] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[3] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 100;
+                    money -= 150;
+                    Items[3] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[3] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 200;
+                    money -= 250;
+                    Items[3] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[3] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 400;
+                    money -= 450;
+                    Items[3] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[3] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[3] -= 500;
+                    money -= 550;
+                    Items[3] += 500;
+                }
+
+            }
         }
 
         public void lettuce()
         {
-            Console.Write("lettuce");
-            user.givecropname();
-            Console.WriteLine(money);
-            cropoptions.normal();
-            choice = user.input();
-            if (choice == 1)
+            if (turn == false)
             {
-                if (money < 100 || shoplist[4] < 50)
+                Console.Write("lettuce");
+                user.givecropname();
+                Console.WriteLine(money2);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 100 || shoplist[4] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 50;
+                    money2 -= 100;
+                    Items2[4] += 50;
                 }
-                shoplist[4] -= 50;
-                money -= 100;
-                Items[4] += 50;
-            }
-            else if (choice == 2)
-            {
-                if (money < 150 || shoplist[4] < 100)
+                else if (choice == 2)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 150 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 100;
+                    money2 -= 150;
+                    Items2[4] += 100;
                 }
-                shoplist[4] -= 100;
-                money -= 150;
-                Items[4] += 100;
-            }
-            else if (choice == 3)
-            {
-                if (money < 250 || shoplist[4] < 200)
+                else if (choice == 3)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 250 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 200;
+                    money2 -= 250;
+                    Items2[4] += 200;
                 }
-                shoplist[4] -= 200;
-                money -= 250;
-                Items[4] += 200;
-            }
-            else if (choice == 4)
-            {
-                if (money < 450 || shoplist[4] < 400)
+                else if (choice == 4)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money2 < 450 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 400;
+                    money2 -= 450;
+                    Items2[4] += 400;
                 }
-                shoplist[4] -= 400;
-                money -= 450;
-                Items[4] += 400;
-            }
-            else if (choice == 5)
-            {
-                if (money < 550 || shoplist[4] < 500)
+                else if (choice == 5)
                 {
-                    user.outofstock();
-                    mainmenu();
+                    if (money < 550 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 500;
+                    money -= 550;
+                    Items[4] += 500;
                 }
-                shoplist[4] -= 500;
-                money -= 550;
-                Items[4] += 500;
+                else {
+                }
+                Console.Write("lettuce");
+                user.givecropname();
+                Console.WriteLine(money);
+                cropoptions.normal();
+                choice = user.input();
+                if (choice == 1)
+                {
+                    if (money < 100 || shoplist[4] < 50)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 50;
+                    money -= 100;
+                    Items[4] += 50;
+                }
+                else if (choice == 2)
+                {
+                    if (money < 150 || shoplist[4] < 100)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 100;
+                    money -= 150;
+                    Items[4] += 100;
+                }
+                else if (choice == 3)
+                {
+                    if (money < 250 || shoplist[4] < 200)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 200;
+                    money -= 250;
+                    Items[4] += 200;
+                }
+                else if (choice == 4)
+                {
+                    if (money < 450 || shoplist[4] < 400)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 400;
+                    money -= 450;
+                    Items[4] += 400;
+                }
+                else if (choice == 5)
+                {
+                    if (money < 550 || shoplist[4] < 500)
+                    {
+                        user.outofstock();
+                        mainmenu();
+                    }
+                    shoplist[4] -= 500;
+                    money -= 550;
+                    Items[4] += 500;
+                }
             }
         }
         public void beans()
         {
             Console.Write("beans");
             user.givecropname();
-            Console.WriteLine(money);
+            Console.WriteLine(money2);
             cropoptions.normal();
             choice = user.input();
             if (turn == false)

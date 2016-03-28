@@ -12,8 +12,11 @@ namespace Problem_Solving
         {
            samestring samestring = new samestring();
             backwardstriangle triangleback = new backwardstriangle();
-            triangleback.output();
-
+            Fibbonaci fib = new Fibbonaci();
+            //triangleback.output();
+            for (int i = 0; i < 4000000; i++) {
+                
+            }
 
             //samestring.userinput();
 
