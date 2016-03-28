@@ -1,0 +1,11 @@
+*FoodList
+*Time
+*Report on news
+*Order more food
+*Rules/Instructions
+*Money
+*Level 1 / how long
+*Exit / Start Over
+*Hire Assocites / Apply
+*Two Player options
+*High Scores
