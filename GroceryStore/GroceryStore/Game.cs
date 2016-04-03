@@ -29,7 +29,7 @@ namespace GroceryStore
         public List<int> special = new List<int>();
         List<HighScoreOrganize> orderedScores = new List<HighScoreOrganize>();
 
-        public int day = 1;
+        public int day = 9;
         string line;
         bool incorrect = true;
         int choice;
@@ -43,7 +43,7 @@ namespace GroceryStore
         double newscore;
         bool players;
         string grabName;
-        bool turn;
+        bool? turn = null;
 
 
 
@@ -667,6 +667,65 @@ namespace GroceryStore
 
 
             }
+            else {
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        for (int j = 0; j < Items.Count; j++)
+                        {
+
+                            test = rand.normal(0);
+
+                            if (test > 55 && Items[j] > 0)
+                            {
+                                if (special[j] == game.keepnum)
+                                {
+                                    test = Items[j] * 3 * 3;
+                                }
+                                else {
+                                    test = Items[j] * 3;
+                                }
+                            }
+                            else if (appcount > 0 && test > 55)
+                            {
+                                if (special[j] == game.keepnum)
+                                {
+                                    test = Items[j] * 3 * (appcount / 2) * 3;
+                                }
+                                else {
+                                    test = Items[j] * 3 * (appcount / 2);
+                                }
+
+                            }
+                            else if (appcount > 0 && test < 55)
+                            {
+                                if (special[j] == game.keepnum)
+                                {
+                                    test = Items[j] * 1 * (appcount / 2) * 3;
+                                }
+                                else {
+                                    test = Items[j] * 1 * (appcount / 2);
+                                }
+
+                            }
+                            else
+                            {
+                                if (special[j] == game.keepnum)
+                                {
+                                    test = Items[j] * 1 * 3;
+                                }
+                                else {
+                                    test = Items[j] * 1;
+                                }
+
+                            }
+                            Console.WriteLine(croplistname[j] + " made: $" + test);
+                            money += test;
+                        }
+
+                    }
+                }
+            }
         }
 
         public void gameover()
@@ -679,7 +738,17 @@ namespace GroceryStore
                 time.OneSec();
                 Console.WriteLine("Your time: ");
                 time.elapsed();
-                HighScore();
+                Console.WriteLine("would you like to record your high score?");
+                user.yesno();
+                choice = user.input();
+                if (choice == 1)
+                {
+                    HighScore();
+                }
+                else if (choice == 2)
+                {
+                    greeting();
+                }
                 time.TwoSec();
             }
             else if (money <= 500)
@@ -689,8 +758,18 @@ namespace GroceryStore
                 Console.WriteLine("Your time: ");
                 time.elapsed();
                 time.TwoSec();
+                Console.WriteLine("would you like to record your high score?");
+                user.yesno();
+                choice = user.input();
+                if (choice == 1)
+                {
+                    HighScore();
+                }
+                else if (choice == 2)
+                {
+                    greeting();
+                }
 
-                HighScore();
             }
         }
 
@@ -798,8 +877,15 @@ namespace GroceryStore
 
             Console.WriteLine("List");
             Console.WriteLine("-----------------");
+            if (applicants.Count == 0) {
+                Console.WriteLine("sorry, there are no applications!");
+            }
             if (turn == false)
             {
+                if (applicants2.Count == 0)
+                {
+                    Console.WriteLine("sorry, there are no applications!");
+                }
                 for (int j = 0; j < applicants2.Count; j++)
                 {
                     Console.WriteLine(applicants2[j]);
