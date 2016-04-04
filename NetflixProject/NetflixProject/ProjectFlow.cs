@@ -16,8 +16,6 @@ namespace NetflixProject
 
         public void flowstart()
         {
-            
-
             visual.NetflixText();
 
             view();
@@ -30,9 +28,12 @@ namespace NetflixProject
 
         private void view()
         {
+            Console.WriteLine("netflix menu");
             visual.LeftColored();
             Console.Write("View");
             visual.RightColored();
+            Console.WriteLine("");
+            Console.WriteLine("press anything to enter");
 
         }
 

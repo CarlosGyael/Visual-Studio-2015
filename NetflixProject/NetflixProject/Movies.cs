@@ -21,6 +21,7 @@ namespace NetflixProject
             {
                 foreach (string i in movielist())
                 {
+                    Console.WriteLine("movie menu");
                     visual.left();
                     Console.Write(i);
                     visual.RightColored();

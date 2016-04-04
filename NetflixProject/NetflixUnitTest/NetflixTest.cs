@@ -6,7 +6,7 @@ using System.Collections;
 namespace NetflixUnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class NetflixTest
     {
 
         [TestMethod]

@@ -42,11 +42,13 @@ namespace NetflixProject
         {
             foreach (string i in viewmenu(listname))
             {
+                Console.WriteLine("show menu");
                 totalrate();
                 visual.left();
                 Console.Write(i);
                 visual.RightColored();
                 Console.WriteLine("");
+                
                 if (track == 0)
                 {
                     Console.WriteLine("overall rate: " + pokemonr);
@@ -62,7 +64,6 @@ namespace NetflixProject
                     Console.WriteLine("overall rate: " + spongebobr);
                     track = -1;
                 }
-               
                 input = Console.ReadKey();
                 if (input.Key == ConsoleKey.Backspace)
                 {
@@ -86,6 +87,7 @@ namespace NetflixProject
             {
                 foreach (string a in viewmenu(spongebob))
                 {
+
                     visual.left();
                     Console.Write(a);
                     visual.RightColored();

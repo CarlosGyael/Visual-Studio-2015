@@ -27,10 +27,14 @@ namespace NetflixProject
         {
             foreach (string i in viewmenu(title.ToList()))
             {
+                Console.WriteLine("genre menu");
                 visual.left();
                 Console.Write(i);
                 visual.RightColored();
+                Console.WriteLine("");
+                Console.WriteLine("click enter to enter, backspace to return and any other input to scroll next");
                 input = Console.ReadKey();
+                Console.Clear();
                 if (input.Key == ConsoleKey.Enter && i == "Movie")
                 {
                     Movies movie = new Movies();
