@@ -9,7 +9,7 @@ namespace NetflixProject
     class LionKing : Title
     {
         Time time = new Time();
-        private double Duration = 3.20;
+        private string Duration = "3:25";
         private ConsoleKeyInfo input;
         private string letters;
         private bool run = true;
@@ -67,7 +67,6 @@ namespace NetflixProject
                 run = false;
                 return run;
             }
-            return run;
         }
 
     }

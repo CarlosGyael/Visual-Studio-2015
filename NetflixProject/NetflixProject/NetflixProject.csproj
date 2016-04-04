@@ -44,14 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
+    <Compile Include="All.cs" />
     <Compile Include="BadBoys.cs" />
     <Compile Include="CaptainAmerica.cs" />
+    <Compile Include="Comedy.cs" />
     <Compile Include="Genre.cs" />
     <Compile Include="LionKing.cs" />
     <Compile Include="Movies.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Romance.cs" />
     <Compile Include="Shows.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Title.cs" />

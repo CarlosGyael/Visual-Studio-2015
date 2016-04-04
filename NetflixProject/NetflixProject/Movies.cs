@@ -10,10 +10,10 @@ namespace NetflixProject
     class Movies
     {
         Visual visual = new Visual();
-        ConsoleKeyInfo input;
+        private ConsoleKeyInfo input;
         bool? back = null;
 
-        string[] title = new string[] { "Lion King", "Captain America", "Bad Boys" };
+        private string[] title = new string[] { "Lion King", "Captain America", "Bad Boys" };
 
         public void moviemenu()
         {
@@ -33,12 +33,13 @@ namespace NetflixProject
                     else if (input.Key == ConsoleKey.Enter && i == "Captain America")
                     {
                         CaptainAmerica ameica = new CaptainAmerica();
+                        ameica.details();
            
                     }
                     else if (input.Key == ConsoleKey.Enter && i == "Bad Boys")
                     {
                         BadBoys boys = new BadBoys();
-
+                        boys.details();
                     }
                     else if (input.Key == ConsoleKey.Backspace)
                     {
