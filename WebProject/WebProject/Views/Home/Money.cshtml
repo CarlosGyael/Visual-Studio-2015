@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Money";
+}
+
+
+@if (Request.IsAuthenticated)
+{
+    <h2>Money</h2>
+<input type="number" min="0" max="10000" step="any" name="Broker_Fees" id="broker_fees" required="required" />
+<input type="submit" value="Submit" class="btn btn-default" />
+}
+else {
+<h1>You Must Be Signed In To Use This Feature!</h1>
+}

@@ -1,0 +1,42 @@
+﻿@model WebProject.Models.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+@Scripts.Render("~/Scripts/UserMap.js")
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<style>
+    #map {
+        height: 500px;
+        width: 900px;
+    }
+</style>
+<dic class="row">
+    <div class="col-lg-12">
+        <h1>Your Map</h1> <img src="https://www.dropbox.com/s/0mub96h09kjotie/google-maps-marker-for-residencelamontagne-hi.png?dl=1"><b> Claimed By Other <img src="https://www.dropbox.com/s/nkrk81z790mowyi/Green.png?dl=1"> Claimed By You <img src="https://www.dropbox.com/s/4rhpbj2mzyjlzai/Yellow.png?dl=1"> Unclaimed <img src="https://www.dropbox.com/s/5fpobncigmw9o4c/blue.png?dl=1"> You</b>
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg4AtaqDjSsjLKelwBmaByluWjWVwbGe8&libraries=places&callback=initMap" async defer>
+           </script>
+        <form id="radiusform">
+            <select form="Businessform" id="Business" autofocus>
+                <option value=store>Store</option>
+                <option value=food>Food</option>
+                <option value=pet_store>Pet Stores</option>
+                <option value=electronics_store>Electronics</option>
+                <option value=university>University</option>
+            </select>
+            <select form="radiusform" id="Radius" autofocus>
+                <option value=100>100 Meters</option>
+                <option value=250>250 Meters</option>
+                <option value=500>500 Meters</option>
+                <option value=1000>1000 Meters</option>
+                <option value=1500>1500 Meters</option>
+            </select>
+            <button class="btn btn-default" id="radiusform" onClick="initMap()" type="button">Change Map</button>
+        </form>
+    </div>
+</dic>
+
+
+

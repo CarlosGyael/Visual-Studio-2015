@@ -1,0 +1,15 @@
+﻿@model WebProject.Models.IndexViewModel
+@{
+    ViewBag.Title = "TeamGraph";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+@{
+    foreach (WebProject.Models.ApplicationUser item in Model.TeamList)
+    {
+        @item.UserName; <br />
+    }
+}

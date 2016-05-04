@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Notes";
+}
+@{
+    ViewBag.Title = "Notes";
+ }
+
+@if (Request.IsAuthenticated)
+{
+    <h2>Notes</h2>
+<textarea rows="4" cols="50">
+
+    </textarea>
+<input type="submit" value="Submit" class="btn btn-default" />
+}
+else
+{
+    <h1>You Must Be Signed In To Use This Feature!</h1>
+}

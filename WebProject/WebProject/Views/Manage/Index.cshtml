@@ -1,0 +1,87 @@
+﻿@model WebProject.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Team @Model.TeamName</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        @if (Model.IsManager == true)
+        {
+            <dt>View Team:</dt>
+            <dd>
+                @Model.EntireTeam [
+                @Html.ActionLink("Team Members", "TeamGraph") ]
+            </dd>
+            <dt>Team Progress:</dt>
+            <dd>
+                <style>
+                    .chart div {
+                        font: 10px sans-serif;
+                        text-align: center;
+                        padding: 3px;
+                        margin: 0px;
+                        color: white;
+                    }
+                </style>
+
+                <div class="chart" style="width:200px; background-color: lightgray;">
+                    <div style="width: 100px; background-color: steelblue;">50%</div>
+                </div>
+            </dd>
+            <dt>DailyMessage:</dt>
+            <dd>
+                @Model.DailyMessage
+            </dd>
+            <dt><button onclick="">Change Message</button></dt>
+            <dd>
+                <input style="height: 20px" type="text" min="0" max="10000" step="any" name="Broker_Fees" id="broker_fees" required="required" />
+
+            </dd>
+        }
+        else
+        {
+            <dt>Your Progress:</dt>
+            <dd>
+                <style>
+                    .chart div {
+                        font: 10px sans-serif;
+                        text-align: center;
+                        padding: 3px;
+                        margin: 0px;
+                        color: white;
+                    }
+                </style>
+
+                <div class="chart" style="width:200px; background-color: lightgray;">
+                    <div style="width: 180px; background-color: steelblue;">90%</div>
+                </div>
+            </dd>
+
+            <dt>Daily Message:</dt>
+            <dd>
+                @Model.DailyMessage
+            </dd>
+
+        }
+
+
+    </dl>
+</div>
