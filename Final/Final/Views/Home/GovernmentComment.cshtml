@@ -1,0 +1,17 @@
+﻿@model Final.Models.Post
+@{
+    ViewBag.Title = "GovernmentComment";
+}
+
+<h2>Government Solution</h2>
+
+
+@using (Html.BeginForm("GovernmentComment", "Account", new { PostID = ViewBag.postId }, FormMethod.Post, null))
+{
+    @Html.TextAreaFor(m => m.GovernmentComment, new { @style = "width:100%; height:100px;" })
+
+    <br />
+
+    <input type="submit" class="btn btn-default" value="Add Solution" />
+}
+

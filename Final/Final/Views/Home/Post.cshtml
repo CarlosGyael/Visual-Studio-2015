@@ -1,0 +1,309 @@
+﻿@model Final.Models.Comments
+@{
+    ViewBag.Title = "Post";
+}
+
+@Scripts.Render("~/Scripts/Maps.js")
+
+@{
+    <br />
+
+        <div class="container">
+
+            <!----- post-->
+            <div class="row post" style="overflow: hidden; overflow-x:auto;">
+                <!----- left side-->
+
+                <div class="col-xs-1 number_box" id="@ViewBag.Post.ID">
+                    @ViewBag.Number
+                </div>
+                <div class="col-xs-1 height_box ">
+
+                    <!----- up arrow-->
+                    <a href="@Url.Action("Like", "Account", new { PostId = ViewBag.Post.ID, Number = ViewBag.Number }, null)">
+                        <div class="col-xs-12 arrow" id="uparrow">
+                            <span class="glyphicon glyphicon-chevron-up element"></span>
+                        </div>
+                    </a>
+
+                    <!----- count-->
+
+                    <div class="col-xs-12 count" id=voteCounter>
+                        @ViewBag.Post.Likes
+                    </div>
+                    <!----- down arrow-->
+                    <a href="@Url.Action("Dislike", "Account", new { PostId = ViewBag.Post.ID, Number = ViewBag.Number }, null)">
+                        <div class="col-xs-12 arrow" id="downarrow">
+                            <span class="glyphicon glyphicon-chevron-down element"></span>
+                        </div>
+                    </a>
+                </div>
+                <!----- detail side of post-->
+                <div class="col-xs-10 height_box" id="@ViewBag.Post.ID">
+                    <!----- top side-->
+                    <div class="row top-half half_box" id="@ViewBag.Post.ID">
+                        <!--Img-->
+                        <div class="col-xs-2 title height_box" id="@ViewBag.Post.ID">
+                            @{
+                                if (ViewBag.Post.ImageData == null)
+                                {
+                                    <img src="../../No_image.png" style="max-width:100px; max-height:100px; position:relative; top:30px;" />
+                                }
+                            }
+                        </div>
+                        <!----- title-->
+                        <div class="col-xs-7 title height_box" id="@ViewBag.Post.ID">
+                            <p>Title: @ViewBag.Post.Title</p>
+                        </div>
+                        <!----- Status-->
+                        <div class="col-xs-3 status height_box" id="@ViewBag.Post.ID">
+                            <p>Status: @ViewBag.Post.Status</p>
+                            @{
+                                if (ViewBag.Post.Status == "Open")
+                                {
+
+                                    <div class="progress" id="@ViewBag.Post.ID">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                            @ViewBag.Post.Status
+                                        </div>
+                                    </div>
+                                }
+                                else if (ViewBag.Post.Status == "Pending")
+                                {
+                                    <div class="progress" id="@ViewBag.Post.ID">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                            Open
+                                        </div>
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:40%">
+                                            Pending
+                                        </div>
+                                    </div>
+                                }
+                                else if (ViewBag.Post.Status == "Closed")
+                                {
+                                    <div class="progress" id="@ViewBag.Post.ID">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                            Open
+                                        </div>
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" style="width:40%">
+                                            Pending
+                                        </div>
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
+                                            Closed
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!----- bottom side-->
+                    <div class="row half_box" id="@ViewBag.Post.ID">
+                        <!----- location-->
+                        <div class="col-xs-4 height_box" id="@ViewBag.Post.ID">
+                            <p>Location: @ViewBag.Post.Location</p>
+                        </div>
+                        <!----- username-->
+                        <div class="col-xs-4 height_box" id="@ViewBag.Post.ID">
+
+                            @{
+                                if (ViewBag.Post.Anonymous == true)
+                                {
+                                    <p>User: Anonymous</p>
+                                }
+                                else {
+                                    <a href="@Url.Action("Post", "Home", new { PostId = ViewBag.Post.ID, Number = ViewBag.Number }, null)">
+                                        <p class="Publisher">User: @ViewBag.Post.UserID</p>
+                                    </a>
+                                }
+                            }
+                        </div>
+
+                        <!----- time-->
+                        <div class="col-xs-4 height_box" id="@ViewBag.Post.ID">
+                            <p>Time: @ViewBag.Post.Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <br />
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-4 picture">
+                                    @{
+                                        if (ViewBag.Post.ImageData == null)
+                                        {
+                                            <img src="../../No_image.png" class="pic" style="height:100%; width:100%; position:relative;" />
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                </div>
+                                <div class="col-xs-8 description">
+                                    <h2>Description</h2>
+                                    <p>
+                                        @ViewBag.Post.Description
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+
+                        <div class="container">
+                            <div class="row">
+                                @{
+                                    if (User.Identity.Name == ViewBag.Post.UserID && ViewBag.Post.ImageData == null)
+                                    {
+                                        <div class="col-xs-3">
+                                            @using (Html.BeginForm("AddPhoto", "Home", new { PostID = ViewBag.Post.ID }))
+                                            {
+                                                <button type="submit" class="btn btn-primary" style="height:100%; width:140px;">Add Photo</button>
+                                            }
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                            <br />
+
+                            @{
+                                if (ViewBag.IsGov && ViewBag.Post.Status == "Pending")
+                                {
+                                    using (Html.BeginForm("ClosePost", "Account", new { PostID = ViewBag.Post.ID }))
+                                    {
+                                        <button url="UserComment" type="submit" value="@ViewBag.Post.ID" class="btn btn-primary" style="height:100%; width:100%; background-color:red;">Close Post</button>
+                                    }
+                                }
+                                else if (ViewBag.IsUser && ViewBag.Post.Status == "Closed" && ViewBag.Post.UserID == User.Identity.Name)
+                                {
+                                    using (Html.BeginForm("OpenPost", "Account", new { PostID = ViewBag.Post.ID }))
+                                    {
+                                        <button url="UserComment" type="submit" value="@ViewBag.Post.ID" class="btn btn-primary" style="height:100%; width:100%; background-color:green;">Re-Open Post</button>
+                                    }
+                                }
+                                else if (ViewBag.IsUser && ViewBag.Post.Status == "Pending" && ViewBag.Post.UserID == User.Identity.Name)
+                                {
+                                    using (Html.BeginForm("ClosePost", "Account", new { PostID = ViewBag.Post.ID }))
+                                    {
+                                        <button url="UserComment" type="submit" value="@ViewBag.Post.ID" class="btn btn-primary" style="height:100%; width:100%; background-color:red;">Close Post</button>
+                                    }
+                                }
+                            }
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h2>Street View</h2>
+                                        <img id="street" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <h2>Google Maps</h2>
+                                        <div id="floating-panel">
+                                            <input id="address" type="textbox" value="@ViewBag.Post.Location">
+                                            <input id="submit" type="button" value="Submit">
+                                        </div>
+                                        <div id="map"></div>
+                                        
+                                        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg4AtaqDjSsjLKelwBmaByluWjWVwbGe8&libraries=places&callback=initMap" async defer></script>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="row">
+                                @{
+                                    if (ViewBag.Post.GovernmentComment == null && ViewBag.IsGov)
+                                    {
+                                        <br />
+                                        <a href="javascript:void(0)" onclick="document.getElementById('GovernmentSolution').style.display='block';document.getElementById('fade').style.display='block'" class="btn btn-border">
+                                            <input class="button" id="button" type="button" value="Add a solution" />
+                                        </a>
+                                    }
+                                    else if (ViewBag.Post.GovernmentComment == null)
+                                    {
+                                    }
+                                    else {
+                                        <h2>Government Solution</h2>
+                                        <B>@ViewBag.Post.GovernmentComment</B>
+                                    }
+                                }
+                            </div>
+
+                            <br />
+
+                            <div class="row">
+                                @{
+                                    <h2>Comments</h2>
+                                    foreach (var comment in ViewBag.Comments)
+                                    {
+                                        <div class="container" style="border:solid; border-width:1px; background-color:#BDCFEB">
+                                            <div class="row" style="height:35px;">
+                                                <div class="col-xs-2">
+                                                    @comment.User
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    @comment.Comment
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    @comment.Time
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    <br />
+
+                                }
+                            </div>
+                        </div>
+}
+
+<div class="container">
+    <div class="row">
+        @if (User.Identity.Name != ViewBag.Post.UserID && ViewBag.IsGov == false)
+            {
+            <a href="javascript:void(0)" onclick="document.getElementById('UserComment').style.display='block';document.getElementById('fade').style.display='block'" class="btn btn-border">
+                <input class="button" id="button" type="button" value="Add Comment" />
+            </a>
+        }
+    </div>
+
+
+</div>
+<div id="UserComment" class="white_content" style="padding-left:25px;">
+    <span id="close" href="javascript:void(0)" onclick="document.getElementById('UserComment').style.display='none';document.getElementById('fade').style.display='none'">&#10006;</span>
+    <h2>UserComments</h2>
+
+    @using (Html.BeginForm("Comment", "Account", new { PostID = @ViewBag.Post.ID, @ViewBag.Number }, FormMethod.Post, null))
+    {
+        @Html.TextAreaFor(m => m.Comment, new { @style = "width:100%; height:100px;" })
+
+        <br />
+
+        <input class="button" id="button" type="submit" class="btn btn-default" value="Add Comment" />
+    }
+</div>
+
+<div id="GovernmentSolution" class="white_content" style="padding-left:25px;">
+    <span id="close" href="javascript:void(0)" onclick="document.getElementById('GovernmentSolution').style.display='none';document.getElementById('fade').style.display='none'">&#10006;</span>
+    <h2>Are you sure?</h2>
+    <br />
+    <div class="row">
+        <div class="col-xs-4">
+            @using (Html.BeginForm("GovernmentComment", "Home", new { PostID = ViewBag.Post.ID }))
+            {
+                <button url="GovernmentComment" type="submit" value="@ViewBag.Post.ID" class="btn btn-primary" style="height:100px; width:100px;">Yes!</button>
+            }
+        </div>
+        <div class="col-xs-4">
+            <button url="GovernmentComment" type="submit" value="@ViewBag.Post.ID" class="btn btn-primary" style="height:100px; width:100px;">Nevermind..</button>
+        </div>
+    </div>
+</div>
+<div id="fade" class="black_overlay"></div>

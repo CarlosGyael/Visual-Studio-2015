@@ -1,0 +1,61 @@
+﻿@model Final.Models.Post
+@{
+    ViewBag.Title = "NewPost";
+}
+
+<script>
+    $(document).ready(function(){
+        $('#anonymous').click(function () {
+            if ($('#anonymous').is(':checked')) {
+                $('#name').html('Anonymous User');
+            } else {
+                $('#name').html(' @User.Identity.Name');
+            }
+        });
+    });
+</script>
+
+<br />
+
+@using (Html.BeginForm("NewPost", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="target" }))
+{
+    <h4>Create a new post.</h4>
+    <hr />
+     <div class="form-group row">
+        <div class="col-xs-1" style="padding-top:7px; padding-left:40px">
+            Publisher:
+        </div>
+        <div class="form-control-static col-xs-2" id="name">@User.Identity.Name</div>
+        <div class="checkbox col-xs-1 " style="margin-left:-40px;">
+            <div class="col-md-10">
+                @Html.CheckBoxFor(m => m.Anonymous, new { @class = "", id="anonymous" })
+            </div>
+        </div>
+         <div class="col-xs-8" style="margin-left:-80px; padding-top:7px;">
+             Hide username.
+         </div>
+    </div>
+
+   
+    <div class="col-lg-2" style="padding-left:0px; padding-top:0px;">
+        <label for="category">Category</label>
+        @Html.DropDownListFor(m => m.value, Model.ListCategory)
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="IssueTitle ">Issue/ Quick Description</label>
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", id = "issueTitle", placeholder = "Issue Title", })
+   </div>
+
+    <div class="form-group">
+        <label for="address">Street Address or Nearest Corner</label>
+        @Html.TextBoxFor(m => m.Location, new { @class="form-control", name="AddressBox", placeholder="Street Address or Nearest Corner", id="address" })
+    </div>
+
+    <div class="form-group">
+        @Html.TextAreaFor(m => m.Description, new { @class = "description form-control", placeholder = "Description", rows = "4" })
+    </div>
+
+
+<button type="submit" value="NewPost" class="btn btn-primary">Submit</button>
+}

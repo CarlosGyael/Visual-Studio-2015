@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Pofile";
+}
+
+<br />
+
+<div class="container" style="background-color:#FAFAFA;">
+    <div class="row" style="height:30px;">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-11">
+            <h2>@ViewBag.subTitle</h2>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-xs-4" style="padding-left:0px; height:375px; width:375px;">
+            @{
+                if (ViewBag.Img == null)
+                {
+                    <img src="../../No_image.png" class="pic" style="height:100%; width:100%; position:relative;" />
+                }
+                else
+                {
+
+                }
+            }
+        </div>
+        <div class="col-xs-8">
+            <div class="row" style="padding-right:0px;">
+                <div class="col-xs-2">
+                    
+                </div>
+                <div class="col-xs-10">
+                    <h2>Bio</h2>
+                </div>
+            </div>
+            <div class="row" style="height:100%; width:100%; padding-right:0px; padding-left:10px;">
+                <div class="col-xs-2">
+
+                </div>
+                <div class="col-xs-10">
+                    hello
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />

@@ -1,0 +1,215 @@
+﻿@model Final.Models.Pagination
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br />
+
+<!--Catagories-->
+<div class="row">
+    <div class="col-xs-10 catagories">
+        <div class="col-xs-4 build">
+            <span class="glyphicon glyphicon-plus-sign"></span>@Html.ActionLink("Build", "Build", "Home", new { @style= "text-decoration:none; color:inherit; " })
+        </div>
+        <div class="col-xs-4 fix">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>@Html.ActionLink("Fix", "Fix", "Home", new { @style = "text-decoration:none; color:inherit; " })
+        </div>
+        <div class="col-xs-4 help">
+            <span class="glyphicon glyphicon-bullhorn"></span>@Html.ActionLink("Help", "Help", "Home", new { @style = "text-decoration:none; color:inherit; " })
+        </div>
+    </div>
+
+    <!--Filter button-->
+    <div class="dropdown col-xs-2">
+        <button class="dropbtn"> Filter </button>
+        <div class="dropdown-content">
+            <a href="@Url.Action("Popular", "Home", new { model = ViewBag.post}, null)"> Most Popular</a>
+            <a href="@Url.Action("New", "Home", new { model = ViewBag.post }, null)"> Newly Posted</a>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!--Search bar-->
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <p style="position:relative; 
+    top:0px;">
+        Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<br />
+
+<div class="container">
+
+        @{
+            int ?number = null;
+            if (ViewBag.Number == null)
+            {
+                number = 1;
+            }
+            else
+            {
+                number = ViewBag.Number;
+            }
+
+
+            foreach (var item in Model.Items)
+            {
+
+                        <!----- post-->
+                        <div class="row post" style="overflow: hidden; overflow-x:auto;">
+                            <!----- left side-->
+                            <a href="@Url.Action("Post", "Home", new { PostId = item.ID, Number = item.Number }, null)">
+                                <div class="col-xs-1 number_box" id="@item.ID">
+                                    @item.Number
+                                </div>
+                                </a >
+                                <div class="col-xs-1 height_box ">
+
+                                    <!----- up arrow-->
+                                    <a href="@Url.Action("Like", "Account", new { PostId = item.ID }, null)">
+                                        <div class="col-xs-12 arrow" id="uparrow">
+                                            <span class="glyphicon glyphicon-chevron-up element"></span>
+                                        </div>
+                                    </a>
+
+                                    <!----- count-->
+
+                                    <div class="col-xs-12 count" id=voteCounter>
+                                        @item.Likes
+                                    </div>
+                                    <!----- down arrow-->
+                                    <a href="@Url.Action("Dislike", "Account", new { PostId = item.ID }, null)">
+                                        <div class="col-xs-12 arrow" id="downarrow">
+                                            <span class="glyphicon glyphicon-chevron-down element"></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!----- detail side of post-->
+                                <a href="@Url.Action("Post", "Home", new { PostId = item.ID, Number = item.Number }, null)">
+                                    <div class="col-xs-10 height_box" id="@item.ID">
+                                        <!----- top side-->
+                                        <div class="row top-half half_box" id="@item.ID">
+                                            <!--Img-->
+                                            <div class="col-xs-2 title height_box" id="@item.ID">
+                                                @{
+                                                    if (item.ImageData == null)
+                                                    {
+                                                        <img src="../../No_image.png" style="max-width:100px; max-height:100px; position:relative; top:30px;" />
+                                                    }
+                                                }
+                                            </div>
+                                            <!----- title-->
+                                            <div class="col-xs-7 title height_box" id="@item.ID">
+                                                <p>Title: @item.Title</p>
+                                            </div>
+                                            <!----- Status-->
+                                            <div class="col-xs-3 status height_box" id="@item.ID">
+                                                <p>Status: @item.Status</p>
+                                                @{
+                                                    if (item.Status == "Open")
+                                                    {
+
+                                                        <div class="progress" id="@item.ID">
+                                                            <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                                                @item.Status
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (item.Status == "Pending")
+                                                    {
+                                                        <div class="progress" id="@item.ID">
+                                                            <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                                                Open
+                                                            </div>
+                                                            <div class="progress-bar progress-bar-warning" role="progressbar" style="width:40%">
+                                                                Pending
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else if (item.Status == "Closed")
+                                                    {
+                                                        <div class="progress" id="@item.ID">
+                                                            <div class="progress-bar progress-bar-success" role="progressbar" style="width:30%">
+                                                                Open
+                                                            </div>
+                                                            <div class="progress-bar progress-bar-warning" role="progressbar" style="width:40%">
+                                                                Pending
+                                                            </div>
+                                                            <div class="progress-bar progress-bar-danger" role="progressbar" style="width:30%">
+                                                                Closed
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                        <!----- bottom side-->
+                                        <div class="row half_box" id="@item.ID">
+                                            <!----- location-->
+                                            <div class="col-xs-4 height_box" id="@item.ID">
+                                                <p>Location: @item.Location</p>
+                                            </div>
+                                            <!----- username-->
+                                            <div class="col-xs-4 height_box" id="@item.ID">
+
+                                                @{
+                                                    if (item.Anonymous == true)
+                                                    {
+                                                        <p>User: Anonymous</p>
+                                                    }
+                                                    else {
+                                                        <p>User: @item.UserID</p>
+                                                    }
+                                                }
+                                            </div>
+
+                                            <!----- time-->
+                                            <div class="col-xs-4 height_box" id="@item.ID">
+                                                <p>Time: @item.Time</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+</div>
+                        <br>
+                        }
+                }
+</div>
+
+<br />
+
+@if (Model.Pager.EndPage > 1)
+{
+    <ul class="pagination">
+        @if (Model.Pager.CurrentPage > 1)
+        {
+            <li>
+                <a href="~/Home/Index">First</a>
+            </li>
+                            <li>
+                                <a href="~/Home/Index?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                            </li>
+        }
+
+        @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+        {
+            <li class="@(page == Model.Pager.CurrentPage ? "active" : "")">
+                <a href="~/Home/Index?page=@page">@page</a>
+            </li>    }
+
+        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+        {
+            <li>
+                <a href="~/Home/Index?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+            </li>
+                            <li>
+                                <a href="~/Home/Index?page=@(Model.Pager.TotalPages)">Last</a>
+                            </li>
+        }
+    </ul>
+}
+	
